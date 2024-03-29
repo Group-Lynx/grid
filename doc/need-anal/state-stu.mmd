@@ -1,0 +1,37 @@
+stateDiagram-v2
+direction LR
+    [*] --> 学生界面
+
+    state choose_tab <<choice>>
+    学生界面 --> choose_tab: 选择界面
+    choose_tab --> 课程表
+    choose_tab --> 代办栏
+    choose_tab --> 通知箱
+    choose_tab --> 班级栏
+
+    课程表 --> 查看课程与会议
+    课程表 --> 查看死线任务
+
+    代办栏 --> 查看所有代办
+    
+    state on_work <<choice>>
+    查看所有代办 --> on_work: 选中作业
+    on_work --> 查看作业
+    on_work --> 变更作业完成状态
+    on_work --> 标记为死线任务
+
+    state on_task <<choice>>
+    查看所有代办 --> on_task: 选中任务
+    on_task --> 查看任务
+    on_task --> 编辑任务
+    on_task --> 变更任务完成状态
+    on_task --> 标记为死线任务
+
+    state on_msg <<choice>>
+    通知箱 --> 查看所有通知
+    查看所有通知 --> on_msg
+    on_msg --> 查看通知细节
+    on_msg --> 将通知转换为任务
+
+    班级栏 --> 查看归属的所有班级
+    班级栏 --> 加入新的班级务

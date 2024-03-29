@@ -1,0 +1,17 @@
+stateDiagram-v2
+direction LR
+    [*] --> 登陆
+    
+    state login_branch <<choice>>
+    登陆 --> login_branch
+    
+    login_branch --> 学生登陆: 以学生身份
+    login_branch --> 老师登陆: 以老师身份
+
+    学生登陆 --> 登陆: 密码错误
+    老师登陆 --> 登陆: 密码错误
+
+    学生登陆 --> 学生界面: 密码正确
+    学生界面 --> [*]
+    老师登陆 --> 老师逻辑: 密码正确
+    老师逻辑 --> [*]
