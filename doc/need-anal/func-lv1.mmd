@@ -1,0 +1,10 @@
+flowchart LR
+    student["学生"]
+    Class["班级"]
+    student_dest["学生视图"]
+    teacher["老师"]
+    
+    student -->|"学生事务"| student_dest
+    
+    teacher -->|"班级事务"| Class -->|"班级事务"| student_dest
+    

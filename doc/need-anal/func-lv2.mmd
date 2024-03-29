@@ -1,0 +1,20 @@
+flowchart LR
+    student_dest["学生视图"]
+    student["学生"]
+    Class["班级"]
+    teacher["老师"]
+    storage[("数据存储")]
+    event_center(["接收事务"])
+
+    event_center -->|"学生课程"| student_dest
+    event_center -->|"班级会议"| student_dest
+    event_center -->|"学生代办"| student_dest
+    event_center -->|"班级作业"| student_dest
+    event_center -->|"班级通知"| student_dest
+
+    event_center -.-> storage
+    
+    student -->|"学生事务"| event_center
+    
+    teacher -->|"班级事务"| Class -->|"班级事务"| event_center
+    
