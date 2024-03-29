@@ -1,0 +1,89 @@
+erDiagram
+    "学生" }o--o{  "任务" : "拥有"
+    "学生" }o--o{ "课程" : "拥有"
+    "学生" }o--o{ "活动" : "拥有"
+    "学生" }o--o{ "通知详情" : "拥有"
+    "学生" }o--o{ "作业详情" : "拥有"
+    "班级" }o--o{ "学生" : "属于"
+    "班级" }o--o{ "通知" : "拥有"
+    "班级" }o--o{ "作业" : "拥有"
+    "班级" }o--o{ "会议" : "拥有"
+    "老师" }o--o{ "班级" : "管理"
+    "学生"{
+        string name
+        string studentId PK
+        string sex
+        int year
+        datetime register_time
+        datetime graduate_time
+        string pwd
+    }
+    "班级"{
+        string sdept
+        string name
+        string register_time 
+        string classId PK
+    }
+    "老师"{
+        string name 
+        string teacherId PK
+        int type
+        string pwd
+    }
+    "课程" {
+        string courseId PK
+        datetime start_time
+        datetime end_time
+        string location
+        string teacherId PK
+        string details
+    }
+    "任务" {
+        string taskId PK
+        datetime deadline
+        string details
+        bool type
+        bool is_completed
+    }
+    "活动" {
+        string activityId PK
+        string name
+        datetime time
+        string location
+        string details
+    }
+    "通知" {
+        string infoId PK
+        string name
+        datetime time 
+        string details
+        int read_number
+        bool is_sended
+    }
+    "作业" {
+        string homeworkId PK
+        string name
+        datetime start_time
+        datetime end_time
+        string details
+        bool is_sended
+    }
+    "会议" {
+        string meetingId PK
+        string name
+        datetime start_time
+        datetime end_time
+        string location
+        string prensentor
+    }
+    "通知详情"{
+        string studentId PK
+        string infoId PK
+        bool state
+    }
+    "作业详情"{
+        string studentId PK
+        string homeworkId PK
+        bool state
+        string content
+    }
