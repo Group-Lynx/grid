@@ -4,15 +4,15 @@ flowchart LR
 
         Teacher["老师"]
         Class["班级"]
-        MsgEditing("编辑消息")
-        MsgDistribute("消息分发")
-        MsgDb[("消息存储")]
-        StuDummy1["学生消息箱"]
-        StuDummy2["学生消息箱"]
-        StuDummy3["学生消息箱"]
+        MsgEditing("编辑通知")
+        MsgDistribute("通知分发")
+        MsgDb[("通知存储")]
+        StuDummy1["学生通知箱"]
+        StuDummy2["学生通知箱"]
+        StuDummy3["学生通知箱"]
 
-        Teacher -->|"消息草稿"| MsgEditing -->|"消息"| Class -->|"消息"| MsgDistribute
-        MsgEditing -->|"更新后消息草稿"| MsgEditing
+        Teacher -->|"通知草稿"| MsgEditing -->|"通知"| Class -->|"通知"| MsgDistribute
+        MsgEditing -->|"更新后通知草稿"| MsgEditing
 
         Class <-.-> MsgDb
         MsgEditing <-.-> MsgDb
@@ -36,7 +36,7 @@ flowchart LR
             EventDel("删除事件")
             EventMod("修改事件")
             EventDB[("事件存储")]
-            MsgViewEventSys["消息箱"]
+            MsgViewEventSys["通知箱"]
             IntoEvent("转换为事件")
 
             StudentEventSys -->|"事件"| EventAdd
@@ -47,7 +47,7 @@ flowchart LR
             EventMod -->|"更新后事件表"| EventView
             EventDel -->|"更新后事件表"| EventView
 
-            MsgViewEventSys -->|"消息信息"| IntoEvent
+            MsgViewEventSys -->|"通知信息"| IntoEvent
             IntoEvent -->|"更新后事件表"| EventView
 
             EventView -->|"事件表"| StudentViewEventSys
@@ -66,7 +66,7 @@ flowchart LR
             StudentTodoSys["学生"]
             TodoView["代办栏"]
             StudentViewTodoSys["学生视图"]
-            MsgViewTodoSys["消息箱"]
+            MsgViewTodoSys["通知箱"]
             TodoAdd["添加代办"]
             TodoDel["删除代办"]
             TodoMod["修改代办"]
@@ -77,7 +77,7 @@ flowchart LR
             TodoDel -->|"更新后代办栏"| TodoView
             TodoMod -->|"更新后代办栏"| TodoView
 
-            MsgViewTodoSys -->|"消息信息"| IntoTodo
+            MsgViewTodoSys -->|"通知信息"| IntoTodo
             IntoTodo -->|"更新后代办栏"| TodoView
 
             TodoView -->|"代办栏"| StudentViewTodoSys
