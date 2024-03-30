@@ -1,10 +1,15 @@
 flowchart LR
-    student["学生"]
+    User["用户"]
+    Student["学生"]
+    Teacher["老师"]
     Class["班级"]
-    student_dest["学生视图"]
-    teacher["老师"]
-    
-    student -->|"学生事务"| student_dest
-    
-    teacher -->|"班级事务"| Class -->|"班级事务"| student_dest
-    
+    StudentView["学生视图"]
+    EventCenter("事务汇总系统")
+
+    User -->|"学生登陆"| Student
+    User -->|"老师登陆"| Teacher
+    Student -->|"学生事务"| EventCenter 
+    Teacher -->|"班级事务"| Class -->|"班级事务"| EventCenter
+    EventCenter -->|"事件"| StudentView
+    EventCenter -->|"代办"| StudentView
+    EventCenter -->|"通知"| StudentView

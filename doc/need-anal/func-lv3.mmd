@@ -1,26 +1,129 @@
 flowchart LR
-    student_dest["学生视图"]
-    student["学生"]
-    Class["班级"]
-    teacher["老师"]
-    calendar["日程表"]
-    todotab["代办栏"]
-    msgbox["通知箱"]
-    storage[("数据存储")]
-    event_center(["接收事务"])
+    subgraph TeacherSys["老师通知分发系统"]
+        direction LR
 
-    event_center -->|"学生课程"| calendar
-    event_center -->|"班级会议"| calendar
-    event_center -->|"学生代办"| todotab
-    event_center -->|"班级作业"| todotab
-    event_center -->|"班级通知"| msgbox
-    
-    calendar -->|"风格化展示"| student_dest
-    todotab -->|"列表化展示"| student_dest
-    msgbox -->|"列表化展示"| student_dest
+        Teacher["老师"]
+        Class["班级"]
+        MsgEditing("编辑消息")
+        MsgDistribute("消息分发")
+        MsgDb[("消息存储")]
+        StuDummy1["学生消息箱"]
+        StuDummy2["学生消息箱"]
+        StuDummy3["学生消息箱"]
 
-    student -->|"学生事务"| event_center
-    event_center -.-> storage
-    
-    teacher -->|"班级事务"| Class -->|"班级事务"| event_center
-    
+        Teacher -->|"消息草稿"| MsgEditing -->|"消息"| Class -->|"消息"| MsgDistribute
+        MsgEditing -->|"更新后消息草稿"| MsgEditing
+
+        Class <-.-> MsgDb
+        MsgEditing <-.-> MsgDb
+
+        MsgDistribute --> StuDummy1
+        MsgDistribute --> StuDummy2
+        MsgDistribute --> StuDummy3
+    end
+
+
+    subgraph StudentSys["学生事务管理系统"]
+        direction TB
+        
+        subgraph EventSys["事件管理"]
+            direction LR
+
+            StudentEventSys["学生"]
+            StudentViewEventSys["学生视图"]
+            EventView["事件表"]
+            EventAdd("添加事件")
+            EventDel("删除事件")
+            EventMod("修改事件")
+            EventDB[("事件存储")]
+            MsgViewEventSys["消息箱"]
+            IntoEvent("转换为事件")
+
+            StudentEventSys -->|"事件"| EventAdd
+            StudentEventSys -->|"删除请求"| EventDel
+            StudentEventSys -->|"修改请求"| EventMod
+
+            EventAdd -->|"更新后事件表"| EventView
+            EventMod -->|"更新后事件表"| EventView
+            EventDel -->|"更新后事件表"| EventView
+
+            MsgViewEventSys -->|"消息信息"| IntoEvent
+            IntoEvent -->|"更新后事件表"| EventView
+
+            EventView -->|"事件表"| StudentViewEventSys
+
+            EventAdd -.-> EventDB
+            EventMod -.-> EventDB
+            EventDel -.-> EventDB
+            IntoEvent -.-> EventDB
+            EventDB -.-> EventView
+
+        end
+
+        subgraph TodoSys["代办管理"]
+            direction LR
+
+            StudentTodoSys["学生"]
+            TodoView["代办栏"]
+            StudentViewTodoSys["学生视图"]
+            MsgViewTodoSys["消息箱"]
+            TodoAdd["添加代办"]
+            TodoDel["删除代办"]
+            TodoMod["修改代办"]
+            TodoDB[("代办存储")]
+            IntoTodo("转换为代办")
+            
+            TodoAdd -->|"更新后代办栏"| TodoView
+            TodoDel -->|"更新后代办栏"| TodoView
+            TodoMod -->|"更新后代办栏"| TodoView
+
+            MsgViewTodoSys -->|"消息信息"| IntoTodo
+            IntoTodo -->|"更新后代办栏"| TodoView
+
+            TodoView -->|"代办栏"| StudentViewTodoSys
+
+            StudentTodoSys -->|"代办"| TodoAdd
+            StudentTodoSys -->|"删除请求"| TodoDel
+            StudentTodoSys -->|"修改请求"| TodoMod
+            
+            TodoAdd -.-> TodoDB
+            TodoDel -.-> TodoDB
+            TodoMod -.-> TodoDB
+            IntoTodo -.-> TodoDB
+            TodoDB -.-> TodoView
+
+            TodoView
+        end
+    end
+
+    subgraph ClassSys["班级管理系统"]
+        direction LR
+
+        StudentClassSys["学生"]
+        TeacherClassSys["老师"]
+        ApprovalSys("申请处理")
+        ClassDB[("班级存储")]
+
+        StudentClassSys -->|"入班申请"| ApprovalSys
+        TeacherClassSys -->|"添加班级申请"| ApprovalSys
+        TeacherClassSys -->|"加入学生申请"| ApprovalSys
+        ApprovalSys <-.-> ClassDB
+    end
+
+    subgraph LoginSys["登陆管理系统"]
+        direction LR
+
+        User["用户"]
+        Login("登陆")
+        StuUser["学生用户"]
+        TchUser["老师用户"]
+
+        UserDB[("用户数据库")]
+
+        User -->|"登陆信息"| Login
+        Login --->|"学生信息"| StuUser
+        Login --->|"老师信息"| TchUser
+
+        Login -.->|"登陆信息"| UserDB
+        UserDB -.->|"身份信息"| Login
+    end

@@ -1,20 +1,48 @@
 flowchart LR
-    student_dest["学生视图"]
-    student["学生"]
-    Class["班级"]
-    teacher["老师"]
-    storage[("数据存储")]
-    event_center(["接收事务"])
+    subgraph InfoSys["通知管理系统"]
+        direction LR
 
-    event_center -->|"学生课程"| student_dest
-    event_center -->|"班级会议"| student_dest
-    event_center -->|"学生代办"| student_dest
-    event_center -->|"班级作业"| student_dest
-    event_center -->|"班级通知"| student_dest
+        Student["学生"]
+        Teacher["老师"]
+        Class["班级"]
+        StudentView["学生视图"]
+        EventView["事件表"]
+        TodoView["代办栏"]
+        MsgView["消息箱"]
+        EventDistribute("班级通知分发系统")
+        EventCenter("学生事务管理系统")
+        StudentDB[("学生信息存储")]
+        ClassDB[("班级信息存储")]
 
-    event_center -.-> storage
-    
-    student -->|"学生事务"| event_center
-    
-    teacher -->|"班级事务"| Class -->|"班级事务"| event_center
-    
+        Student -->|"学生事务"| EventCenter
+        EventCenter -->|"事件"| EventView
+        EventCenter -->|"代办"| TodoView
+
+        Teacher -->|"班级通知"| Class -->|"班级通知"| EventDistribute -->|"通知"| MsgView
+
+        EventView -->|"事件"| StudentView
+        TodoView -->|"代办"| StudentView
+        MsgView -->|"通知"| StudentView
+
+        EventCenter -.-> StudentDB
+        EventDistribute -.-> ClassDB
+
+    end
+
+    subgraph LoginSys["登陆管理系统"]
+        direction LR
+
+        User["用户"]
+        Login("登陆")
+        StuUser["学生用户"]
+        TchUser["老师用户"]
+
+        UserDB[("用户数据库")]
+
+        User -->|"登陆信息"| Login
+        Login --->|"学生信息"| StuUser
+        Login --->|"老师信息"| TchUser
+
+        Login -.->|"登陆信息"| UserDB
+        UserDB -.->|"身份信息"| Login
+    end
