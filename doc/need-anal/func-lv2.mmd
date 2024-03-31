@@ -3,7 +3,7 @@ flowchart LR
         direction LR
 
         Student["学生"]
-        Teacher["老师"]
+        Teacher["教师"]
         Class["班级"]
         StudentView["学生视图"]
         EventView["事件表"]
@@ -32,17 +32,19 @@ flowchart LR
     subgraph LoginSys["登陆管理系统"]
         direction LR
 
+        
         User["用户"]
         Auth("用户认证")
         StuUser["学生用户"]
-        TchUser["老师用户"]
+        TchUser["教师用户"]
 
         UserDB[("用户数据库")]
 
         User -->|"认证信息"| Auth
         Auth --->|"学生信息"| StuUser
-        Auth --->|"老师信息"| TchUser
+        Auth --->|"教师信息"| TchUser
 
         Auth -.->|"认证信息"| UserDB
         UserDB -.->|"身份信息"| Auth
+
     end

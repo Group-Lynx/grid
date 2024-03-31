@@ -1,11 +1,11 @@
 flowchart LR
-    subgraph TeacherSys["老师通知分发系统"]
+    subgraph TeacherSys["教师通知分发系统"]
         direction LR
 
-        Teacher["老师"]
+        Teacher["教师"]
         Class["班级"]
-        MsgEditing("编辑通知")
-        MsgDistribute("通知分发")
+        MsgEditing("4.1 编辑通知")
+        MsgDistribute("4.2 通知分发")
         MsgDb[("通知存储")]
         StuDummy1["学生通知箱"]
         StuDummy2["学生通知箱"]
@@ -31,13 +31,13 @@ flowchart LR
 
             StudentEventSys["学生"]
             StudentViewEventSys["学生视图"]
-            EventView["事件表"]
-            EventAdd("添加事件")
-            EventDel("删除事件")
-            EventMod("修改事件")
+            EventView["2.5 事件表"]
+            EventAdd("2.1 添加事件")
+            EventDel("2.2 删除事件")
+            EventMod("2.3 修改事件")
             EventDB[("事件存储")]
             MsgViewEventSys["通知箱"]
-            IntoEvent("转换为事件")
+            IntoEvent("2.4 转换为事件")
 
             StudentEventSys -->|"事件"| EventAdd
             StudentEventSys -->|"删除请求"| EventDel
@@ -60,29 +60,29 @@ flowchart LR
 
         end
 
-        subgraph TodoSys["代办管理"]
+        subgraph TodoSys["待办管理"]
             direction LR
 
             StudentTodoSys["学生"]
-            TodoView["代办栏"]
+            TodoView["2.10 待办栏"]
             StudentViewTodoSys["学生视图"]
             MsgViewTodoSys["通知箱"]
-            TodoAdd["添加代办"]
-            TodoDel["删除代办"]
-            TodoMod["修改代办"]
-            TodoDB[("代办存储")]
-            IntoTodo("转换为代办")
+            TodoAdd["2.6 添加待办"]
+            TodoDel["2.7 删除待办"]
+            TodoMod["2.8 修改待办"]
+            TodoDB[("待办存储")]
+            IntoTodo("2.9 转换为待办")
             
-            TodoAdd -->|"更新后代办栏"| TodoView
-            TodoDel -->|"更新后代办栏"| TodoView
-            TodoMod -->|"更新后代办栏"| TodoView
+            TodoAdd -->|"更新后待办栏"| TodoView
+            TodoDel -->|"更新后待办栏"| TodoView
+            TodoMod -->|"更新后待办栏"| TodoView
 
             MsgViewTodoSys -->|"通知信息"| IntoTodo
-            IntoTodo -->|"更新后代办栏"| TodoView
+            IntoTodo -->|"更新后待办栏"| TodoView
 
-            TodoView -->|"代办栏"| StudentViewTodoSys
+            TodoView -->|"待办栏"| StudentViewTodoSys
 
-            StudentTodoSys -->|"代办"| TodoAdd
+            StudentTodoSys -->|"待办"| TodoAdd
             StudentTodoSys -->|"删除请求"| TodoDel
             StudentTodoSys -->|"修改请求"| TodoMod
             
@@ -100,8 +100,8 @@ flowchart LR
         direction LR
 
         StudentClassSys["学生"]
-        TeacherClassSys["老师"]
-        ApprovalSys("申请处理")
+        TeacherClassSys["教师"]
+        ApprovalSys("3.1 申请处理")
         ClassDB[("班级存储")]
 
         StudentClassSys -->|"入班申请"| ApprovalSys
@@ -110,26 +110,26 @@ flowchart LR
         ApprovalSys <-.-> ClassDB
     end
 
-    subgraph LoginSys["登陆管理系统"]
+    subgraph LoginSys["登录管理系统"]
         direction LR
 
         User["用户"]
-        Login("登陆")
-        Signup("注册")
+        Login("1.1 登录")
+        Signup("1.2 注册")
         StuUser["学生用户"]
-        TchUser["老师用户"]
+        TchUser["教师用户"]
 
         UserDB[("用户数据库")]
 
-        User -->|"登陆信息"| Login
+        User -->|"登录信息"| Login
         User -->|"注册信息"| Signup
 
         Login --->|"学生信息"| StuUser
-        Login --->|"老师信息"| TchUser
+        Login --->|"教师信息"| TchUser
 
         Signup -.->|"注册信息"| UserDB
         UserDB -.->|"身份信息"| Signup
 
-        Login -.->|"登陆信息"| UserDB
-        UserDB -.->|"身份信息"| Login
+        Login -.->|"登录信息"| UserDB
+        UserDB -.->|"用户信息"| Login
     end

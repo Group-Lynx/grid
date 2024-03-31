@@ -4,21 +4,21 @@ direction LR
 
     访客欢迎界面 --> 注册界面: 是新用户
     注册界面 --> 注册成功界面: 注册信息
-    注册成功界面 --> 登陆界面: 登录
+    注册成功界面 --> 登录界面: 登录
 
-    访客欢迎界面 --> 登陆界面: 拥有账号
+    访客欢迎界面 --> 登录界面: 拥有账号
 
     state LoginBranch <<choice>>
-    登陆界面 --> LoginBranch: 用户提供登陆信息
-    LoginBranch --> 学生登陆验证: 身份为学生
-    LoginBranch --> 老师登陆验证: 身份为老师
+    登录界面 --> LoginBranch: 用户提供登录信息
+    LoginBranch --> 学生登录验证: 身份为学生
+    LoginBranch --> 教师登录验证: 身份为教师
 
     state PswdCheck <<choice>>
-    学生登陆验证 --> PswdCheck 
-    老师登陆验证 --> PswdCheck 
+    学生登录验证 --> PswdCheck 
+    教师登录验证 --> PswdCheck 
     PswdCheck --> 访客欢迎界面: 身份核验失败
     PswdCheck --> 学生系统: 成功验证学生身份
-    PswdCheck --> 老师系统: 成功验证老师身份
+    PswdCheck --> 教师系统: 成功验证教师身份
 
     学生系统 --> [*]
-    老师系统 --> [*]
+    教师系统 --> [*]
