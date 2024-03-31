@@ -115,14 +115,20 @@ flowchart LR
 
         User["用户"]
         Login("登陆")
+        Signup("注册")
         StuUser["学生用户"]
         TchUser["老师用户"]
 
         UserDB[("用户数据库")]
 
         User -->|"登陆信息"| Login
+        User -->|"注册信息"| Signup
+
         Login --->|"学生信息"| StuUser
         Login --->|"老师信息"| TchUser
+
+        Signup -.->|"注册信息"| UserDB
+        UserDB -.->|"身份信息"| Signup
 
         Login -.->|"登陆信息"| UserDB
         UserDB -.->|"身份信息"| Login
