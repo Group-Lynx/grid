@@ -6,10 +6,10 @@ flowchart LR
     StudentView["学生视图"]
     EventCenter("事务汇总系统")
 
-    User -->|"学生登陆"| Student
-    User -->|"教师登陆"| Teacher
+    User -->|"学生登录"| Student
+    User -->|"教师登录"| Teacher
     Student -->|"学生事务"| EventCenter 
     Teacher -->|"班级事务"| Class -->|"班级事务"| EventCenter
     EventCenter -->|"事件"| StudentView
-    EventCenter -->|"代办"| StudentView
+    EventCenter -->|"待办"| StudentView
     EventCenter -->|"通知"| StudentView

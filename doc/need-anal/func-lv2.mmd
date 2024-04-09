@@ -7,7 +7,7 @@ flowchart LR
         Class["班级"]
         StudentView["学生视图"]
         EventView["事件表"]
-        TodoView["代办栏"]
+        TodoView["待办栏"]
         MsgView["通知箱"]
         EventDistribute("班级通知分发系统")
         EventCenter("学生事务管理系统")
@@ -16,12 +16,12 @@ flowchart LR
 
         Student -->|"学生事务"| EventCenter
         EventCenter -->|"事件"| EventView
-        EventCenter -->|"代办"| TodoView
+        EventCenter -->|"待办"| TodoView
 
         Teacher -->|"班级通知"| Class -->|"班级通知"| EventDistribute -->|"通知"| MsgView
 
         EventView -->|"事件"| StudentView
-        TodoView -->|"代办"| StudentView
+        TodoView -->|"待办"| StudentView
         MsgView -->|"通知"| StudentView
 
         EventCenter -.-> StudentDB
@@ -29,7 +29,7 @@ flowchart LR
 
     end
 
-    subgraph LoginSys["登陆管理系统"]
+    subgraph LoginSys["登录管理系统"]
         direction LR
 
         
