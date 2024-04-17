@@ -1,0 +1,78 @@
+---
+title: 学生视角
+---
+flowchart TD
+    VueFramework["Vue 框架"]
+    NavBar["导航栏"]
+    VueRouter["Vue 路由"]
+    CalendarRoute["课程表标签"]
+    TodoRoute["待办标签"]
+    MailRoute["通知标签"]
+    PersonalRoute["个人标签"]
+    CalendarPage["课程表页面"]
+    TodoPage["待办页面"]
+    MailPage["通知页面"]
+    PersonalPage["个人页面"]
+
+    AssignmentTimeline["时间线"]
+    EventTable["事件表"]
+    NewEventDialog["新建事件对话框"]
+
+    TodoListView["待办列表视图"]
+    TodoDetailView["待办细节视图"]
+    TodoToolBar["工具栏"]
+    TodoList["待办列表"]
+    TodoTitle["标题"]
+    TodoDetail["细节"]
+    TodoAction["操作栏"]
+    
+    MailListView["消息列表视图"]
+    MailDetailView["消息细节视图"]
+    MailToolBar["工具栏"]
+    MailList["消息列表"]
+    MailTitle["标题"]
+    MailDetail["细节"]
+    MailAction["操作栏"]
+
+    PersonalInfo["个人信息"]
+    PersonalClassView["班级视图"]
+    PersonalClasses["班级列表"]
+    PersonalJoinClass["加入班级"]
+
+    VueFramework --> NavBar
+    VueFramework --> VueRouter
+
+    NavBar --> CalendarRoute
+    NavBar --> TodoRoute
+    NavBar --> MailRoute
+    NavBar --> PersonalRoute
+
+    VueRouter --> CalendarPage
+    VueRouter --> TodoPage
+    VueRouter --> MailPage
+    VueRouter --> PersonalPage
+
+    CalendarPage --> EventTable
+    CalendarPage --> AssignmentTimeline
+    EventTable -.-> NewEventDialog
+
+    TodoPage --> TodoListView
+    TodoPage --> TodoDetailView
+    TodoListView --> TodoToolBar
+    TodoListView --> TodoList
+    TodoDetailView --> TodoTitle
+    TodoDetailView --> TodoDetail
+    TodoDetailView --> TodoAction
+
+    MailPage --> MailListView
+    MailPage --> MailDetailView
+    MailListView --> MailToolBar
+    MailListView --> MailList
+    MailDetailView --> MailTitle
+    MailDetailView --> MailDetail
+    MailDetailView --> MailAction
+    
+    PersonalPage --> PersonalInfo
+    PersonalPage --> PersonalClassView
+    PersonalClassView --> PersonalClasses
+    PersonalClassView --> PersonalJoinClass

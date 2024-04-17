@@ -1,0 +1,45 @@
+---
+title: 教师视角
+---
+flowchart TD
+    VueFramework["Vue 框架"]
+    ClassListSideBar["班级列表侧边栏"]
+    ActionPanelView["班级操作视图"]
+
+    StudentManageView["学生管理视图"]
+    MailManageView["消息管理视图"]
+
+    ClassList["班级列表"]
+    ClassNew["新建班级"]
+
+    StudentList["学生列表"]
+    StudentAdd["添加学生"]
+
+    MailListView["消息列表视图"]
+    MailDetailView["消息细节视图"]
+    MailToolBar["工具栏"]
+    MailList["消息列表"]
+    MailTitle["标题"]
+    MailDetail["细节"]
+    MailAction["操作栏"]
+
+    VueFramework --> ClassListSideBar
+    VueFramework --> ActionPanelView
+
+    ClassListSideBar --> ClassList
+    ClassListSideBar --> ClassNew
+
+    ActionPanelView --> StudentManageView
+    ActionPanelView --> MailManageView
+
+    StudentManageView --> StudentList
+    StudentManageView --> StudentAdd
+
+    MailManageView --> MailListView
+    MailManageView --> MailDetailView
+    MailListView --> MailToolBar
+    MailListView --> MailList
+    MailDetailView --> MailTitle
+    MailDetailView --> MailDetail
+    MailDetailView --> MailAction
+

@@ -1,0 +1,108 @@
+<mxfile host="app.diagrams.net" modified="2024-04-16T11:17:49.098Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0" etag="lXXvgenqhOk_2M86nm0i" version="24.2.5" type="device">
+  <diagram id="aUqO7CoGzuXAEvL6N0mL" name="Page-1">
+    <mxGraphModel dx="1211" dy="475" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-14" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="B7xVqv-x74IX7nxBJpS9-10" target="B7xVqv-x74IX7nxBJpS9-12">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="40" y="570" as="sourcePoint" />
+            <mxPoint x="140" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-22" value="←提供服务←" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="B7xVqv-x74IX7nxBJpS9-14">
+          <mxGeometry x="0.0187" y="-7" relative="1" as="geometry">
+            <mxPoint y="-13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-23" value="→返回交互数据→" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="B7xVqv-x74IX7nxBJpS9-14">
+          <mxGeometry x="0.0133" y="13" relative="1" as="geometry">
+            <mxPoint y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-15" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="B7xVqv-x74IX7nxBJpS9-10" target="B7xVqv-x74IX7nxBJpS9-13">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint y="520" as="sourcePoint" />
+            <mxPoint x="-180" y="590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-24" value="←提供服务←" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=323;" vertex="1" connectable="0" parent="B7xVqv-x74IX7nxBJpS9-15">
+          <mxGeometry x="-0.02" y="-13" relative="1" as="geometry">
+            <mxPoint x="2" y="-5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-25" value="→返回交互数据→" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=322;" vertex="1" connectable="0" parent="B7xVqv-x74IX7nxBJpS9-15">
+          <mxGeometry x="0.03" y="12" relative="1" as="geometry">
+            <mxPoint x="-3" y="6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-20" value="用户端" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-320" y="360" width="200" height="360" as="geometry">
+            <mxRectangle x="-320" y="330" width="140" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-13" value="桌面端应用程序" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="B7xVqv-x74IX7nxBJpS9-20">
+          <mxGeometry x="40" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-12" value="浏览器网页" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="B7xVqv-x74IX7nxBJpS9-20">
+          <mxGeometry x="40" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-21" value="服务端" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-40" y="360" width="480" height="360" as="geometry">
+            <mxRectangle x="-40" y="370" width="140" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-10" value="前端服务器" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="B7xVqv-x74IX7nxBJpS9-21">
+          <mxGeometry x="40" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-3" value="用户会话数据库" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="B7xVqv-x74IX7nxBJpS9-21">
+          <mxGeometry x="40" y="240" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-4" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="B7xVqv-x74IX7nxBJpS9-21" source="B7xVqv-x74IX7nxBJpS9-3" target="B7xVqv-x74IX7nxBJpS9-10">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="80" y="200" as="sourcePoint" />
+            <mxPoint x="100" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-28" value="验证用户登录状态" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="B7xVqv-x74IX7nxBJpS9-4">
+          <mxGeometry x="0.12" y="-11" relative="1" as="geometry">
+            <mxPoint x="-10" y="8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-1" value="用户数据数据库" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="B7xVqv-x74IX7nxBJpS9-21">
+          <mxGeometry x="320" y="240" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-11" value="后端服务器" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" vertex="1" parent="B7xVqv-x74IX7nxBJpS9-21">
+          <mxGeometry x="320" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-6" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="B7xVqv-x74IX7nxBJpS9-21" source="B7xVqv-x74IX7nxBJpS9-11" target="B7xVqv-x74IX7nxBJpS9-10">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="320" y="100" as="sourcePoint" />
+            <mxPoint x="160" y="100" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-26" value="←返回操作结果←" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="B7xVqv-x74IX7nxBJpS9-6">
+          <mxGeometry x="0.0375" y="-10" relative="1" as="geometry">
+            <mxPoint x="4" y="-7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-27" value="→返回交互数据→" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="B7xVqv-x74IX7nxBJpS9-6">
+          <mxGeometry x="0.0625" y="9" relative="1" as="geometry">
+            <mxPoint x="6" y="9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-5" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="B7xVqv-x74IX7nxBJpS9-21" source="B7xVqv-x74IX7nxBJpS9-1" target="B7xVqv-x74IX7nxBJpS9-11">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="310" y="240" as="sourcePoint" />
+            <mxPoint x="380" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="B7xVqv-x74IX7nxBJpS9-29" value="更新数据状态，同步变更" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="B7xVqv-x74IX7nxBJpS9-5">
+          <mxGeometry x="-0.04" y="-12" relative="1" as="geometry">
+            <mxPoint x="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

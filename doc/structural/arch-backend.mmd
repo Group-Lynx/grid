@@ -1,0 +1,61 @@
+---
+title: 后端服务器
+---
+flowchart TD
+    SpringBootFramework["Spring 框架"]
+    ControllerPackage[["路径控制器包"]]
+    ModelPackage[["数据模型包"]]
+    RepositoryPackage[["数据库交互包"]]
+    DbModelPackage[["数据库交互模型包"]]
+    ReqModelPackage[["网络请求模型包"]]
+    RespModelPackage[["服务回应模型包"]]
+
+    StudentController["学生路由控制器"]
+    StudentTodoController["待办路由控制器"]
+    TeacherController["教师路由控制器"]
+    AndSoOn0["..."]
+    
+    ClassMsg["班级消息"]
+    Classes["班级实体"]
+    Event["事件实体"]
+    AndSoOn1["..."]
+    
+    ReqJoinClass["加入班级请求"]
+    AndSoOn2["..."]
+    
+    RespNewEvent["创建事件回应"]
+    AndSoOn3["..."]
+
+    TodoRepo["待办仓库"]
+    EventRepo["事件仓库"]
+    MailRepo["消息仓库"]
+    AndSoOn4["..."]
+
+    SpringBootFramework --> ControllerPackage
+    SpringBootFramework --> ModelPackage
+    SpringBootFramework --> RepositoryPackage
+
+    ControllerPackage --> StudentController
+    ControllerPackage --> StudentTodoController
+    ControllerPackage --> TeacherController
+    ControllerPackage --> AndSoOn0
+
+    ModelPackage --> DbModelPackage
+    ModelPackage --> ReqModelPackage
+    ModelPackage --> RespModelPackage
+
+    DbModelPackage --> ClassMsg
+    DbModelPackage --> Classes
+    DbModelPackage --> Event
+    DbModelPackage --> AndSoOn1
+
+    ReqModelPackage --> ReqJoinClass
+    ReqModelPackage --> AndSoOn2
+
+    RespModelPackage --> RespNewEvent
+    RespModelPackage --> AndSoOn3
+
+    RepositoryPackage --> TodoRepo
+    RepositoryPackage --> EventRepo
+    RepositoryPackage --> MailRepo
+    RepositoryPackage --> AndSoOn4
