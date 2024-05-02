@@ -1,3 +1,4 @@
 {
-    "editor.lineNumbers": "relative"
+  "editor.lineNumbers": "relative",
+  "cSpell.words": ["primevue", "todos"]
 }
