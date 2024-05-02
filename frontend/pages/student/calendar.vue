@@ -1,0 +1,11 @@
+<template>
+  <div></div>
+</template>
+
+<script lang="ts" setup>
+definePageMeta({
+  layout: "student",
+});
+</script>
+
+<style></style>

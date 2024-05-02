@@ -12,7 +12,7 @@ export default defineNuxtConfig({
   },
   css: [
     "assets/css/tailwind.css",
-    "primevue/resources/themes/lara-light-green/theme.css",
+    "primevue/resources/themes/lara-light-blue/theme.css",
   ],
   postcss: {
     plugins: {

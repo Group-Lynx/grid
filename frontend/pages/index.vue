@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <h2 class="bg-red-500">Page/index.vue</h2>
-    <Button>uwu</Button>
+  <div
+    class="flex flex-col bg-blue-400 h-screen w-screen items-center justify-center"
+  >
+    <p class="text-9xl">Hello world</p>
+    <Button>UwU</Button>
   </div>
 </template>
 
