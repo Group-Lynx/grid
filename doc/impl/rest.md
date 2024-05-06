@@ -31,7 +31,7 @@
 
 | 实现 | 方法   | 端口 | 荷载      | 期待 | 描述 |
 | ---- | ------ | ---- | --------- | ---- | ---- |
-|      | `GET` | `/student/<studentId>/todo` |                                            | `200 [{todoId, title, due, detail}]` | 获取待办 |
+|      | `GET` | `/student/<studentId>/todo` |                                            | `200 [{todoId, title, due, detail, done}]` | 获取待办 |
 |      | `POST` | `/student/<studentId>/todo` | `{title, due, detail}` | `201` |创建待办|
 |      | `PATCH` | `/student/<studentId>/todo/<todoId>` | `{title?, due?, detail?, done?, display?}` | `204` | 更新待办属性 |
 |      | `DELETE` | `/student/<studentId>/todo/<todoId>` |  | `204` | 删除待办 |
