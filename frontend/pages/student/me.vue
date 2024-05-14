@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <slot />
+  <div class="flex h-full w-full flex-col">
+    <div class="basis-80 bg-lime-400">个人信息区</div>
+    <div class="flex-grow bg-yellow-400">班级信息区</div>
   </div>
 </template>
 

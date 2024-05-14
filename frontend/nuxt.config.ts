@@ -13,11 +13,18 @@ export default defineNuxtConfig({
   css: [
     "assets/css/tailwind.css",
     "primevue/resources/themes/lara-light-blue/theme.css",
+    "primeicons/primeicons.css",
   ],
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
+  },
+  imports: {
+    dirs: ["types"],
+  },
+  runtimeConfig: {
+    apiServerBase: "http://127.0.0.1:8000",
   },
 });

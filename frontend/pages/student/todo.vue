@@ -1,14 +1,17 @@
 <template>
   <div class="flex h-full">
     <!-- Student Todo List -->
-    <div class="basis-1/2 bg-lime-400 flex flex-col items-center overflow-auto">
+    <div class="flex basis-1/2 flex-col items-center overflow-auto bg-lime-400">
       <div
         v-for="todo in todos"
-        class="bg-cyan-300 w-3/4 my-3 flex justify-between items-center"
+        class="my-3 flex w-3/4 items-center justify-between bg-cyan-300"
       >
         <!-- Student Todo Item -->
-        <span class="bg-violet-400 grow" @click="selected = todo">
-          <p class="font-bold text-xl m-4">{{ todo.title }}</p>
+        <span class="grow bg-violet-400" @click="viewing = todo">
+          <p class="m-4 text-xl font-bold">
+            {{ todo.title }}
+            <i v-if="todo.display" class="pi pi-eye"></i>
+          </p>
         </span>
         <span class="m-4">
           <Checkbox v-model="todo.done" binary />
@@ -17,11 +20,18 @@
     </div>
 
     <!-- Student Todo Detail -->
-    <div class="basis-1/2 bg-yellow-400">
-      <div v-if="selected" class="flex flex-col items-center">
-        <p class="font-bold text-2xl m-4">{{ selected.title }}</p>
-        <p class="m-4">{{ selected.due }}</p>
-        <p class="m-4">{{ selected.detail }}</p>
+    <div class="basis-1/2 overflow-auto bg-yellow-400">
+      <div v-if="viewing" class="flex flex-col items-center">
+        <div class="flex w-full items-center justify-between bg-sky-400">
+          <p class="m-4 text-2xl font-bold">{{ viewing.title }}</p>
+          <div>
+            <Button class="m-4" @click="showAlert">完成任务</Button>
+            <Button class="m-4" @click="showAlert">加入日程</Button>
+          </div>
+        </div>
+
+        <p class="m-4">{{ viewing.due }}</p>
+        <p class="m-4">{{ viewing.detail }}</p>
       </div>
     </div>
   </div>
@@ -32,31 +42,11 @@ definePageMeta({
   layout: "student",
 });
 
-type Todo = {
-  todoId: string;
-  title: string;
-  due: string;
-  detail: string;
-  done: boolean;
-};
+const todos = useState<Todo[]>("todos");
+const viewing = ref<Todo | null>(null);
 
-const todos = ref<Todo[]>([]);
-const selected = ref<Todo | null>(null);
-
-// FIXME: Replace with real data
-let startDate = new Date("2021-10-01");
-for (let i = 0; i < 26; i++) {
-  let dueDate = new Date(startDate.getTime() + i * 24 * 60 * 60 * 1000);
-  let todo = {
-    todoId: String.fromCharCode(65 + i),
-    title: String.fromCharCode(65 + i) + " Title",
-    due: dueDate.toISOString().split("T")[0],
-    detail:
-      String.fromCharCode(65 + i) +
-      " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec efficitur nibh ac mauris congue lobortis. Mauris sed metus sem. Fusce consectetur viverra tellus, at semper lorem blandit ut. Aliquam ullamcorper vitae metus a sodales. Nam lorem ante, posuere et nulla sed, feugiat varius lacus. Praesent egestas sodales lorem vulputate semper. Nam vel felis et neque convallis mollis. Sed posuere felis in tortor ullamcorper interdum vel ac sem. Phasellus efficitur ipsum eget risus laoreet placerat. Fusce iaculis scelerisque enim a placerat. Ut consectetur ligula ut leo tincidunt, eu aliquam lorem consectetur. Donec interdum est ante, dignissim posuere erat varius a. Quisque porta volutpat tempus. Morbi rutrum urna vitae nulla faucibus ultricies. Etiam malesuada tortor quis lorem facilisis, quis molestie odio vulputate.",
-    done: Math.random() < 0.5,
-  };
-  todos.value.push(todo);
+function showAlert() {
+  alert("FIXME");
 }
 </script>
 
