@@ -2,6 +2,7 @@ package com.grid.repository;
 
 import com.grid.model.Classes;
 import com.grid.response.ClaInfoResponse;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

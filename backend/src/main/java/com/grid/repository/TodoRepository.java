@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface TodoRepository extends JpaRepository<Todo,String> {
-    @Query("SELECT new com.grid.response.TodoInfoRespone(t.id,t.title,t.due,t.detail,t.done) FROM Todo t WHERE t.stu_id =:studentId")
+    @Query("SELECT new com.grid.response.TodoInfoRespone(t.id,t.title,t.due,t.detail,t.done,t.display) FROM Todo t WHERE t.stu_id =:studentId")
     List<TodoInfoRespone> findTodoByStuId(String studentId);
     @Transactional
     @Modifying
