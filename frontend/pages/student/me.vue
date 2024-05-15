@@ -9,6 +9,8 @@
 definePageMeta({
   layout: "student",
 });
+
+const info = useState<StuInfo>("studentInfo");
 </script>
 
 <style></style>

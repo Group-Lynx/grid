@@ -6,6 +6,9 @@
 definePageMeta({
   layout: "teacher",
 });
+
+const classInfo = useState<ClassInfo>("classInfo");
+const selectedClass = useState<Class>("selectedClass");
 </script>
 
 <style></style>

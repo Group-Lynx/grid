@@ -4,7 +4,7 @@
       <button
         class="m-2 h-16 bg-red-400"
         v-for="cla in classes"
-        @click="classId = cla.id"
+        @click="selectedClass = cla"
       >
         {{ cla.name }}
       </button>
@@ -35,17 +35,14 @@ type NavItem = {
   path: string;
 };
 
-const teacherId = useState("teacherId");
-teacherId.value = "teacherId";
-const classId = useState("classId");
-classId.value = "classId";
+const teacherId = useState<string>("teacherId");
 
 const navList = ref<NavItem[]>([
   { name: "通知", icon: "", path: "/mail" },
   { name: "班级", icon: "", path: "/member" },
 ]);
 
-const classes = useState<Class[]>();
+const classes = useState<Class[]>("classes");
 await callOnce(async () => {
   // todos.value = await $fetch(`${cfg.apiServerBase}/teacher/${teacherId}/class`);
   classes.value = [
@@ -58,7 +55,7 @@ await callOnce(async () => {
   ];
 });
 
-const viewing = ref<Class | null>(null);
+const selectedClass = useState<Class>("selectedClass");
 </script>
 
 <style></style>

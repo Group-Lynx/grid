@@ -1,7 +1,7 @@
 <!-- Teacher Logic -->
 <template>
   <div class="flex h-full w-full items-center justify-center">
-    <p class="text-9xl font-extrabold">{{ classId }}</p>
+    <p class="text-9xl font-extrabold">{{ selectedClass }}</p>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ definePageMeta({
   layout: "teacher",
 });
 
-const classId = useState("classId");
+const selectedClass = useState<Class>("selectedClass");
 </script>
 
 <style></style>

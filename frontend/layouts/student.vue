@@ -35,9 +35,9 @@ const navList = ref<NavItem[]>([
 ]);
 
 // FIXME: Replace with real data
-const studentId = "studentId";
+const studentId = useState<string>("studentId");
 
-// FIXME: error handling
+// FIXME: error handling & replace with real data
 const todos = useState<Todo[]>("todos");
 await callOnce(async () => {
   // todos.value = await $fetch(`${cfg.apiServerBase}/student/${studentId}/todo`);
@@ -51,6 +51,7 @@ await callOnce(async () => {
   ];
 });
 
+// FIXME: error handling & replace with real data
 const mails = useState<Mail[]>("mails");
 await callOnce(async () => {
   // mails.value = await $fetch(`${cfg.apiServerBase}/student/${studentId}/mail`);
