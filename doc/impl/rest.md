@@ -37,9 +37,9 @@
 
 | 实现 | 方法   | 端口 | 荷载      | 期待 | 描述 |
 | ---- | ------ | ---- | --------- | ---- | ---- |
-|      | `GET` | `/student/<studentId>/event` |      | `200 [{eventId, name, location, start, end}]` | 获取事件 |
-|      | `POST`      | `/student/<studentId>/event` | `{name, location, start, end}` | `201` |创建事件|
-|  | `PATCH` | `/student/<studentId>/event/<eventId>` | `{name?, location?, start?, end?}` | `204` |更新事件待办事项属性|
+|      | `GET` | `/student/<studentId>/event` |      | `200 [{eventId, name, location, date, start, end}]` | 获取事件 |
+|      | `POST`      | `/student/<studentId>/event` | `{name, location, date, start, end}` | `201` |创建事件|
+|  | `PATCH` | `/student/<studentId>/event/<eventId>` | `{name?, location?, date?, start?, end?}` | `204` |更新事件待办事项属性|
 |      | `DELETE` | `/student/<studentId>/event/<eventId>` |  | `204` | 删除事件 |
 
 ### 学生通知
@@ -64,21 +64,21 @@
 
 ### 班级通知
 
-| 实现 | 方法   | 端口              | 荷载                    | 期待  | 描述     |
-| ---- | ------ | ----------------- | ----------------------- | ----- | -------- |
-|      | `GET` | `/class/<classId>/mail` |  | `201 [{mailId, title}]` | 获取班级所有通知 |
-|      | `POST` | `/class/<classId>/mail` | `{title, detail}` | `201 {mailId}` | 创建新通知草稿 |
-|      | `GET` | `/class/<classId>/mail/<mailId>` |                         | `200 {title, detail, isDraft}` | 获取通知详情 |
-|      | `PUT` | `/class/<classId>/mail/<mailId>` | `{title, detail}` | `204` | 更新通知内容 |
-|      | `POST` | `/class/<classId>/mail/<mailId>` | | `204` | 发布通知 |
+| 实现 | 方法    | 端口                             | 荷载              | 期待                            | 描述            |
+| ---- | ------ | -------------------------------- | ----------------- | ------------------------------ | --------------- |
+|      | `GET`  | `/class/<classId>/mail`          |                   | `201 [{mailId, title}]`        | 获取班级所有通知 |
+|      | `POST` | `/class/<classId>/mail`          | `{title, detail}` | `201 {mailId}`                 | 创建新通知草稿   |
+|      | `GET`  | `/class/<classId>/mail/<mailId>` |                   | `200 {title, detail, isDraft}` | 获取通知详情     |
+|      | `PUT`  | `/class/<classId>/mail/<mailId>` | `{title, detail}` | `204`                          | 更新通知内容     |
+|      | `POST` | `/class/<classId>/mail/<mailId>` |                   | `204`                          | 发布通知        |
 
 
 ### 班级管理
 
-| 实现 | 方法   | 端口           | 荷载                     | 期待            | 描述         |
-| ---- | ------ | -------------- | ------------------------ | --------------- | ------------ |
-|      | `GET` | `/class/<classId>`|  | `200 {classId, className}` | 获取班级详情 |
-|      | `GET` | `/class/<classId>/students`|  | `200 [{studentId, studentName}]` | 获取班级详情 |
-|      | `POST` | `/class`       | `{className, teacherId}` | `201 {classId}` | 创建班级     |
-|      | `POST` | `/class/join`  | `{classId, studentId}`   | `204`           | 学生加入班级 |
-|      | `POST` | `/class/leave` | `{classId, studentId}`   | `204`           | 学生离开班级 |
+| 实现 | 方法    | 端口                        | 荷载                     | 期待                              | 描述         |
+| ---- | ------ | --------------------------- | ------------------------ | -------------------------------- | ------------ |
+|      | `GET`  | `/class/<classId>`          |                          | `200 {classId, className}`       | 获取班级详情 |
+|      | `GET`  | `/class/<classId>/students` |                          | `200 [{studentId, studentName}]` | 获取班级详情 |
+|      | `POST` | `/class`                    | `{className, teacherId}` | `201 {classId}`                  | 创建班级     |
+|      | `POST` | `/class/join`               | `{classId, studentId}`   | `204`                            | 学生加入班级 |
+|      | `POST` | `/class/leave`              | `{classId, studentId}`   | `204`                            | 学生离开班级 |
