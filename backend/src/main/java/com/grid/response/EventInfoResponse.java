@@ -1,22 +1,14 @@
 package com.grid.response;
 
+import java.util.Date;
+
 public class EventInfoResponse {
     private String eventId;
     private String name;
     private String location;
     private Integer start;
     private Integer end;
-
-    public EventInfoResponse(String eventId, String name, String location, Integer start, Integer end) {
-        this.eventId = eventId;
-        this.name = name;
-        this.location = location;
-        this.start = start;
-        this.end = end;
-    }
-
-    public EventInfoResponse() {
-    }
+    private Date date;
 
     public String getEventId() {
         return eventId;
@@ -56,5 +48,25 @@ public class EventInfoResponse {
 
     public void setEnd(Integer end) {
         this.end = end;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public EventInfoResponse(String eventId, String name, String location, Integer start, Integer end, Date date) {
+        this.eventId = eventId;
+        this.name = name;
+        this.location = location;
+        this.start = start;
+        this.end = end;
+        this.date = date;
+    }
+
+    public EventInfoResponse() {
     }
 }

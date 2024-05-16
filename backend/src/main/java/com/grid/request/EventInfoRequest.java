@@ -1,10 +1,13 @@
 package com.grid.request;
 
+import java.util.Date;
+
 public class EventInfoRequest {
     private String name;
     private String location;
     private Integer start;
     private Integer end;
+    private Date date;
 
     public String getName() {
         return name;
@@ -38,11 +41,20 @@ public class EventInfoRequest {
         this.end = end;
     }
 
-    public EventInfoRequest(String name, String location, Integer start, Integer end) {
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public EventInfoRequest(String name, String location, Integer start, Integer end, Date date) {
         this.name = name;
         this.location = location;
         this.start = start;
         this.end = end;
+        this.date = date;
     }
 
     public EventInfoRequest() {
