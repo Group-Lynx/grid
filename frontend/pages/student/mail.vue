@@ -7,11 +7,11 @@
         class="my-3 flex w-3/4 items-center justify-between bg-cyan-300"
       >
         <!-- Student Mail Item -->
-        <span class="grow bg-violet-400" @click="viewing = mail">
+        <button class="flex grow bg-violet-400" @click="viewing = mail">
           <p class="m-4 text-xl font-bold">
             {{ mail.title }}
           </p>
-        </span>
+        </button>
       </div>
     </div>
 

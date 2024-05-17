@@ -22,5 +22,6 @@ const navList = ref<NavItem[]>([
   { link: "/student", name: "学生" },
   { link: "/teacher", name: "老师" },
   { link: "/", name: "主页" },
+  { link: "/welcome", name: "欢迎" },
 ]);
 </script>

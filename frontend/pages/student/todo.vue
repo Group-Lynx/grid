@@ -7,12 +7,12 @@
         class="my-3 flex w-3/4 items-center justify-between bg-cyan-300"
       >
         <!-- Student Todo Item -->
-        <span class="grow bg-violet-400" @click="viewing = todo">
+        <button class="flex grow bg-violet-400" @click="viewing = todo">
           <p class="m-4 text-xl font-bold">
             {{ todo.title }}
             <i v-if="todo.display" class="pi pi-eye"></i>
           </p>
-        </span>
+        </button>
         <span class="m-4">
           <Checkbox v-model="todo.done" binary />
         </span>

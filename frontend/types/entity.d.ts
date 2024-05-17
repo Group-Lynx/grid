@@ -2,7 +2,7 @@ declare global {
   type Todo = {
     id: string;
     title: string;
-    due: string;
+    due: Date;
     detail: string;
     done: boolean;
     display: boolean;
@@ -24,6 +24,7 @@ declare global {
     id: string;
     name: string;
     location: string;
+    date: Date;
     start: number;
     end: number;
   };
@@ -33,16 +34,21 @@ declare global {
     name: string;
   };
 
+  type TchInfo = {
+    id: string;
+    name: string;
+  };
+
   type ClassMail = {
     id: string;
     title: string;
     detail: string;
-    read: boolean;
     draft: boolean;
   };
 
   type ClassInfo = {
-    // TODO: Define the type of ClassInfo
+    id: string;
+    name: string;
   };
 }
 

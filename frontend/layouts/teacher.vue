@@ -9,8 +9,11 @@
         {{ cla.name }}
       </button>
     </nav>
-    <main class="flex flex-grow flex-col bg-yellow-400">
-      <nav class="flex h-14 bg-lime-400">
+
+    <!-- Main Content -->
+    <main class="flex h-full w-full flex-col bg-yellow-400">
+      <!-- Main Nav -->
+      <nav class="flex h-14 shrink-0 bg-lime-400">
         <NuxtLink
           class="m-2 flex w-64 items-center justify-center bg-blue-400"
           v-for="nav in navList"
@@ -19,7 +22,9 @@
           {{ nav.name }}
         </NuxtLink>
       </nav>
-      <div class="flex-grow bg-fuchsia-400">
+
+      <!-- Actual Content -->
+      <div class="h-full w-full overflow-auto bg-fuchsia-400">
         <slot />
       </div>
     </main>
@@ -56,6 +61,10 @@ await callOnce(async () => {
 });
 
 const selectedClass = useState<Class>("selectedClass");
+watch(selectedClass, (newClass, oldClass) => {
+  // FIXME: make network request to fetch class data
+  console.log("selectedClass", newClass, oldClass);
+});
 </script>
 
 <style></style>
