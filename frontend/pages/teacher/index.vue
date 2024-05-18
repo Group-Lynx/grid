@@ -1,7 +1,7 @@
 <!-- Teacher Logic -->
 <template>
   <div class="flex h-full w-full items-center justify-center">
-    <p class="text-9xl font-extrabold">{{ selectedClass }}</p>
+    <p class="text-7xl font-extrabold text-gray-300">选择一个班级以开始操作</p>
   </div>
 </template>
 

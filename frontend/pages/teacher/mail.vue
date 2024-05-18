@@ -2,14 +2,14 @@
   <div class="flex h-full w-full">
     <!-- Mail List -->
     <div
-      class="flex basis-1/2 flex-col items-center overflow-auto bg-orange-400"
+      class="flex basis-1/2 flex-col items-center overflow-auto bg-blue-200/30"
     >
       <!-- A Mail Item -->
       <div
         v-for="mail in mails"
-        class="my-3 flex w-3/4 items-center justify-between bg-cyan-300"
+        class="my-3 flex w-3/4 items-center justify-between rounded-md bg-blue-300 duration-75 ease-out hover:-translate-y-0.5 hover:shadow-lg"
       >
-        <button class="flex grow bg-violet-400" @click="viewing = mail">
+        <button class="flex grow" @click="viewing = mail">
           <p class="m-4 text-xl font-bold">
             {{ mail.title }}
           </p>
@@ -18,7 +18,10 @@
     </div>
 
     <!-- Mail Detail -->
-    <div class="h-full basis-1/2 overflow-auto bg-teal-400">
+    <div
+      class="h-full basis-1/2 overflow-auto"
+      :class="viewing ? '' : 'bg-slate-200'"
+    >
       <div v-if="viewing" class="flex flex-col items-center">
         <div class="flex w-full items-center justify-between bg-sky-400">
           <p class="m-4 text-2xl font-bold">{{ viewing.title }}</p>

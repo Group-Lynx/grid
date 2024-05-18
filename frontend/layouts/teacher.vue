@@ -1,8 +1,11 @@
 <template>
   <div class="flex h-screen w-screen">
-    <nav class="flex w-80 min-w-80 max-w-80 flex-col overflow-auto bg-blue-400">
+    <!-- Class List Nav -->
+    <nav
+      class="z-50 flex w-80 min-w-80 max-w-80 flex-col overflow-auto bg-blue-400 shadow-xl shadow-blue-500"
+    >
       <button
-        class="m-2 h-16 bg-red-400"
+        class="m-2 h-16 rounded-md bg-blue-200 duration-75 ease-out hover:translate-x-0.5 hover:shadow-lg"
         v-for="cla in classes"
         @click="selectedClass = cla"
       >
@@ -11,11 +14,11 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="flex h-full w-full flex-col bg-yellow-400">
+    <main class="flex h-full w-full flex-col">
       <!-- Main Nav -->
-      <nav class="flex h-14 shrink-0 bg-lime-400">
+      <nav class="flex h-14 shrink-0 bg-blue-200">
         <NuxtLink
-          class="m-2 flex w-64 items-center justify-center bg-blue-400"
+          class="m-2 flex w-64 items-center justify-center rounded-md bg-blue-500 font-bold text-blue-50 duration-75 ease-out hover:translate-y-0.5 hover:shadow-lg"
           v-for="nav in navList"
           :to="'/teacher' + nav.path"
         >
@@ -24,7 +27,7 @@
       </nav>
 
       <!-- Actual Content -->
-      <div class="h-full w-full overflow-auto bg-fuchsia-400">
+      <div class="h-full w-full overflow-auto">
         <slot />
       </div>
     </main>

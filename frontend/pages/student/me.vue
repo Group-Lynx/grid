@@ -2,6 +2,7 @@
   <div class="flex h-full w-full flex-col">
     <!-- Student Info Pane -->
     <div class="shrink-0 basis-80">
+      <!-- Student Name Avatar -->
       <div
         class="flex h-full bg-gradient-to-r from-blue-200 from-70% to-blue-50 text-blue-50"
       >
@@ -13,6 +14,8 @@
             >{{ info.name }}</span
           >
         </span>
+
+        <!-- Student Info List -->
         <div class="my-10 flex flex-col text-lg">
           <p
             class="m-1 w-fit rounded-lg bg-blue-400 px-4 py-2 duration-75 ease-out hover:bg-blue-600 hover:shadow-lg"
