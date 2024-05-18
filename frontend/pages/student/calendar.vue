@@ -1,13 +1,13 @@
 <template>
   <div class="relative flex h-full w-full flex-col">
     <!-- Deadline Section -->
-    <div class="grid grow grid-cols-7 grid-rows-1 bg-lime-400">
+    <div class="grid grow grid-cols-7 grid-rows-1">
       <div
-        class="m-1 overflow-auto bg-blue-400"
+        class="m-1 overflow-auto duration-75 ease-out hover:bg-slate-200"
         v-for="d in [0, 1, 2, 3, 4, 5, 6]"
       >
         <div
-          class="m-1 flex h-20 flex-col items-center justify-center overflow-hidden text-nowrap rounded-md bg-purple-400"
+          class="m-1 flex h-20 flex-col items-center justify-center overflow-hidden text-nowrap rounded-md bg-blue-400 duration-75 ease-out hover:-translate-y-0.5 hover:shadow-xl"
           v-for="t in visibleTodo[d]"
         >
           <span class="text-xl font-bold">{{ t.title }}</span>
@@ -17,7 +17,7 @@
     </div>
 
     <!-- Calender Header -->
-    <div class="grid h-16 shrink-0 grid-cols-7 grid-rows-1 bg-red-400">
+    <div class="grid h-16 shrink-0 grid-cols-7 grid-rows-1 bg-blue-300">
       <div
         class="flex items-center justify-center overflow-hidden text-nowrap text-2xl font-bold"
         v-for="d in thisWeek"
@@ -28,15 +28,15 @@
 
     <!-- Calender Content -->
     <div
-      class="5 grid max-h-[60%] basis-3/5 grid-flow-col grid-cols-7 grid-rows-1 bg-yellow-400"
+      class="5 grid max-h-[60%] basis-3/5 grid-flow-col grid-cols-7 grid-rows-1"
     >
       <div
-        class="m-1 flex flex-col overflow-auto bg-red-400"
+        class="m-1 flex flex-col overflow-auto duration-75 ease-out hover:bg-slate-200"
         v-for="d in [0, 1, 2, 3, 4, 5, 6]"
       >
         <!-- Event Item -->
         <div
-          class="m-1 flex h-20 flex-col items-center justify-center overflow-hidden text-nowrap rounded-md bg-indigo-400"
+          class="m-1 flex h-20 flex-col items-center justify-center overflow-hidden text-nowrap rounded-md bg-indigo-400 duration-75 ease-out hover:-translate-y-0.5 hover:shadow-xl"
           v-for="e in visibleEvent[d]"
         >
           <span class="text-xl font-bold">{{ e.name }}</span>
@@ -47,7 +47,7 @@
 
     <!-- Bottom Tool Bar -->
     <div
-      class="absolute bottom-6 left-1/2 flex -translate-x-1/2 rounded-md bg-slate-300 p-2 opacity-25 duration-150 ease-out hover:opacity-100"
+      class="absolute bottom-6 left-1/2 flex -translate-x-1/2 rounded-md bg-cyan-100/50 p-2 opacity-40 duration-150 ease-out hover:opacity-100"
     >
       <span class="m-1">
         <Button

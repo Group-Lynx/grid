@@ -1,16 +1,29 @@
 <template>
   <div class="flex h-full w-full flex-col">
     <!-- Student Info Pane -->
-    <div class="shrink-0 basis-80 bg-lime-400">
-      <div class="flex h-full">
+    <div class="shrink-0 basis-80">
+      <div
+        class="flex h-full bg-gradient-to-r from-blue-200 from-70% to-blue-50 text-blue-50"
+      >
         <span
           class="flex basis-1/3 items-center justify-center text-5xl font-extrabold"
         >
-          {{ info.name }}
+          <span
+            class="rounded-xl bg-blue-600 px-10 py-6 duration-75 ease-out hover:shadow-lg"
+            >{{ info.name }}</span
+          >
         </span>
-        <div class="my-10 text-lg">
-          <p><b>名字：</b>{{ info.name }}</p>
-          <p><b>学号：</b>{{ info.id }}</p>
+        <div class="my-10 flex flex-col text-lg">
+          <p
+            class="m-1 w-fit rounded-lg bg-blue-400 px-4 py-2 duration-75 ease-out hover:bg-blue-600 hover:shadow-lg"
+          >
+            <b>名字：</b>{{ info.name }}
+          </p>
+          <p
+            class="m-1 w-fit rounded-lg bg-blue-400 px-4 py-2 duration-75 ease-out hover:bg-blue-600 hover:shadow-lg"
+          >
+            <b>学号：</b>{{ info.id }}
+          </p>
         </div>
       </div>
     </div>
@@ -20,22 +33,28 @@
       <!-- Join Class Cube -->
       <button
         @click="joinClassDialogVisible = true"
-        class="relative m-2 flex h-52 w-52 flex-col items-center justify-center bg-emerald-400 text-3xl font-bold"
+        class="group relative m-2 flex h-52 w-52 flex-col items-center justify-center rounded-3xl bg-blue-300 text-3xl font-bold text-blue-800 duration-75 ease-out hover:-translate-y-1 hover:rounded-md hover:shadow-xl"
+        ref="joinClassRef"
       >
         加入班级
+        <span
+          class="pi pi-window-maximize absolute bottom-0 text-4xl text-blue-500 opacity-0 duration-75 ease-out group-hover:bottom-4 group-hover:opacity-100"
+        ></span>
       </button>
 
       <!-- Class Cube -->
       <div
-        class="relative m-2 flex h-52 w-52 flex-col items-center justify-center bg-emerald-400"
+        class="relative m-2 flex h-52 w-52 flex-col items-center justify-center rounded-3xl bg-blue-300 text-blue-800 duration-75 ease-out hover:-translate-y-1 hover:rounded-md hover:shadow-xl"
         v-for="cla in classes"
       >
         <span class="text-3xl font-bold">{{ cla.name }}</span>
-        <span class="absolute bottom-4 text-gray-600">{{ cla.id }}</span>
+        <span class="absolute bottom-4 text-blue-500">{{ cla.id }}</span>
         <div
-          class="group absolute flex h-full w-full items-center justify-center hover:bg-gray-400/60"
+          class="group absolute flex h-full w-full items-center justify-center rounded-3xl duration-75 ease-out hover:rounded-md hover:bg-gray-400/40"
         >
-          <Button class="invisible group-hover:visible">离开</Button>
+          <span class="opacity-0 duration-75 ease-out group-hover:opacity-100">
+            <Button>离开</Button>
+          </span>
         </div>
       </div>
     </div>
