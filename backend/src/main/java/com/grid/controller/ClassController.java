@@ -9,14 +9,15 @@ import com.grid.repository.StudentRepository;
 import com.grid.repository.TeacherRepository;
 import com.grid.request.ClassInfoRequest;
 import com.grid.request.JoinClassRequest;
+import com.grid.response.ClaInfoResponse;
+import com.grid.response.StuInfoResponse;
 import com.grid.utils.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 @RestController
 @RequestMapping("/class")
@@ -36,7 +37,28 @@ public class ClassController {
         this.teacherRepository=teacherRepository;
         this.studentRepository=studentRepository;
     }
-
+    @GetMapping("/{classId}")
+    public ResponseEntity<?> getClassInfo(@PathVariable String classId){
+        String className = classesRepository.findClassNameById(classId);
+        if(className==null){
+            return ResponseEntity.ok(ErrorResponse.CLASS_NOT_FOUND);
+        }
+        return ResponseEntity.ok(new ClaInfoResponse(classId,className));
+    }
+    @GetMapping("/{classId}/students")
+    public ResponseEntity<?> getStudentInfo(@PathVariable String classId){
+        String className = classesRepository.findClassNameById(classId);
+        if(className==null){
+            return ResponseEntity.ok(ErrorResponse.CLASS_NOT_FOUND);
+        }
+        List<String> studentId = stuClaRepository.findStuIdByClaId(classId);
+        List<StuInfoResponse> result = new ArrayList<>();
+        for(String studentid:studentId){
+            String studentName = studentRepository.findNameById(studentid);
+            result.add(new StuInfoResponse(studentid,studentName));
+        }
+        return ResponseEntity.ok(result);
+    }
     @PostMapping("")
     public ResponseEntity<?> createClass(@RequestBody ClassInfoRequest classInfoRequest){
         String classId= UUID.randomUUID().toString();

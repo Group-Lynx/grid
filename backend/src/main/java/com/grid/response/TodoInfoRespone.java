@@ -8,16 +8,26 @@ public class TodoInfoRespone {
     private Date due;
     private String detail;
     private Boolean done;
+    private Boolean display;
+
+    public Boolean getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(Boolean display) {
+        this.display = display;
+    }
 
     public TodoInfoRespone() {
     }
 
-    public TodoInfoRespone(String todoId, String title, Date due, String detail, Boolean done) {
+    public TodoInfoRespone(String todoId, String title, Date due, String detail, Boolean done,Boolean dispaly) {
         this.todoId = todoId;
         this.title = title;
         this.due = due;
         this.detail = detail;
         this.done = done;
+        this.display = dispaly;
     }
 
     public String getTodoId() {

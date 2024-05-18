@@ -39,7 +39,7 @@ public class EventController {
             return ResponseEntity.ok(ErrorResponse.STUDENT_NOT_FOUND);
         }
         String event_id = UUID.randomUUID().toString();
-        eventRepository.save(new Event(event_id,eventInfoRequest.getName(),eventInfoRequest.getLocation(),eventInfoRequest.getStart(),eventInfoRequest.getEnd(),studentId));
+        eventRepository.save(new Event(event_id,eventInfoRequest.getName(),eventInfoRequest.getLocation(),eventInfoRequest.getStart(),eventInfoRequest.getEnd(),studentId,eventInfoRequest.getDate()));
         return ResponseEntity.ok().build();
     }
     @PatchMapping("/{studentId}/event/{eventId}")
@@ -48,7 +48,7 @@ public class EventController {
         if(studentname==null){
             return ResponseEntity.ok(ErrorResponse.STUDENT_NOT_FOUND);
         }
-        eventRepository.updateEventInfobyId(eventId,studentId,eventInfoRequest.getName(),eventInfoRequest.getLocation(),eventInfoRequest.getStart(),eventInfoRequest.getEnd());
+        eventRepository.updateEventInfobyId(eventId,studentId,eventInfoRequest.getName(),eventInfoRequest.getLocation(),eventInfoRequest.getStart(),eventInfoRequest.getEnd(),eventInfoRequest.getDate());
         return ResponseEntity.ok().build();
     }
     @DeleteMapping("/{studentId}/event/{eventId}")
