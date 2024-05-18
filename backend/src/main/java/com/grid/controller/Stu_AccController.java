@@ -8,6 +8,7 @@ import com.grid.response.ClaInfoResponse;
 import com.grid.response.StuInfoResponse;
 import com.grid.utils.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,24 +25,21 @@ public class Stu_AccController {
         this.studentRepository=studentRepository;
         this.classesRepository=classesRepository;
     }
-    //测试端口
-    @GetMapping("/hello")
-    public ResponseEntity<?> hello(){
-        return ResponseEntity.ok("Congratulations!");
-    }
     @PostMapping("/login")
     public ResponseEntity<?> userLogin(@RequestBody StudentLoginRequest studentLoginRequest){
         String student_name=studentRepository.findNameById(studentLoginRequest.getStudentId());
         if(student_name==null){
             // 返回错误信息
-            return ResponseEntity.ok(ErrorResponse.STUDENT_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.STUDENT_NOT_FOUND);
         }else{
             student_name=studentRepository.findNameByIdAndPassword(studentLoginRequest.getStudentId(),studentLoginRequest.getPassword());
             if(student_name==null){
                 // 返回错误信息
-                return ResponseEntity.ok(ErrorResponse.STUDENT_NOT_FOUND);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(ErrorResponse.STUDENT_NOT_FOUND);
             }else{
-                return ResponseEntity.ok().build();
+                return ResponseEntity.created(null).build();
             }
         }
     }
@@ -50,17 +48,19 @@ public class Stu_AccController {
         String student_name=studentRepository.findNameById(studentLoginRequest.getStudentId());
         if(student_name==null){
             studentRepository.save( new Student(studentLoginRequest.getStudentId(), studentLoginRequest.getStudentId(), studentLoginRequest.getPassword()));
-            return ResponseEntity.ok().build();
+            return ResponseEntity.created(null).build();
         }else{
             // 返回错误
-            return ResponseEntity.ok(ErrorResponse.STUDENT_ALREADY_EXISTS);
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(ErrorResponse.STUDENT_ALREADY_EXISTS);
         }
     }
     @GetMapping("/{studentId}")
     public ResponseEntity<?> getInfoById(@PathVariable String studentId){
         String student_name=studentRepository.findNameById(studentId);
         if(student_name==null){
-            return ResponseEntity.ok(ErrorResponse.STUDENT_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.STUDENT_NOT_FOUND);
         }else{
             return ResponseEntity.ok(new StuInfoResponse(studentId,student_name));
         }
@@ -69,7 +69,8 @@ public class Stu_AccController {
     public ResponseEntity<?> getStuClass(@PathVariable String studentId){
         String student_name = studentRepository.findNameById(studentId);
         if(student_name==null){
-            return ResponseEntity.ok(ErrorResponse.STUDENT_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.STUDENT_NOT_FOUND);
         }
         List<String> classId = studentRepository.findClassesById(studentId);
         List<ClaInfoResponse> result = new ArrayList<>();
@@ -83,10 +84,11 @@ public class Stu_AccController {
     public ResponseEntity<?> deleteStuById(@PathVariable String studentId){
         String student_name = studentRepository.findNameById(studentId);
         if(student_name==null){
-            return ResponseEntity.ok(ErrorResponse.STUDENT_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.STUDENT_NOT_FOUND);
         }else {
             studentRepository.deleteStuById(studentId);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.noContent().build();
         }
     }
 }

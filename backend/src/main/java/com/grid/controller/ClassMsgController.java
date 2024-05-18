@@ -9,6 +9,7 @@ import com.grid.response.MsgInfoResponse;
 import com.grid.response.MsgResponse;
 import com.grid.utils.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,8 @@ public class ClassMsgController {
     public ResponseEntity<?> getMsg(@PathVariable String classId){
         String classname = classesRepository.findClassNameById(classId);
         if(classname==null){
-            return ResponseEntity.ok(ErrorResponse.CLASS_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.CLASS_NOT_FOUND);
         }else{
             List<String> msgId = claMsgRespository.findMsgById(classId);
             List<MsgResponse> result = new ArrayList<>();
@@ -55,7 +57,8 @@ public class ClassMsgController {
         String msgid = UUID.randomUUID().toString();
         String classname=classesRepository.findClassNameById(classId);
         if(classname==null){
-            return ResponseEntity.ok(ErrorResponse.CLASS_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.CLASS_NOT_FOUND);
         }else{
             noticeRepository.save(new Notice(msgid,msgRequest.getTitle(),msgRequest.getDetail()));
             claMsgRespository.save(new Cla_msg(classId,msgid));
@@ -67,10 +70,12 @@ public class ClassMsgController {
         String classname = classesRepository.findClassNameById(classId);
         String msgtitle = noticeRepository.findTitleById(mailId);
         if(msgtitle==null){
-            return ResponseEntity.ok(ErrorResponse.MAIL_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.MAIL_NOT_FOUND);
         }
         if(classname==null){
-            return ResponseEntity.ok(ErrorResponse.CLASS_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.CLASS_NOT_FOUND);
         }else{
             MsgInfoResponse msgInfoResponse = noticeRepository.findInfoById(mailId);
             return ResponseEntity.ok(msgInfoResponse);
@@ -81,13 +86,15 @@ public class ClassMsgController {
         String classname = classesRepository.findClassNameById(classId);
         String msgtitle = noticeRepository.findTitleById(mailId);
         if(msgtitle==null){
-            return ResponseEntity.ok(ErrorResponse.MAIL_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.MAIL_NOT_FOUND);
         }
         if(classname==null){
-            return ResponseEntity.ok(ErrorResponse.CLASS_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.CLASS_NOT_FOUND);
         }else{
             noticeRepository.updateMsg(mailId,msgRequest.getTitle(),msgRequest.getTitle());
-            return ResponseEntity.ok().build();
+            return ResponseEntity.noContent().build();
         }
     }
     @PostMapping("/{classId}/mail/{mailId}")
@@ -95,16 +102,18 @@ public class ClassMsgController {
         String classname = classesRepository.findClassNameById(classId);
         String msgtitle = noticeRepository.findTitleById(mailId);
         if(msgtitle==null){
-            return ResponseEntity.ok(ErrorResponse.MAIL_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.MAIL_NOT_FOUND);
         }
         if(classname==null){
-            return ResponseEntity.ok(ErrorResponse.CLASS_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.CLASS_NOT_FOUND);
         }else{
             List<String> studentId = stuClaRepository.findStuIdByClaId(classId);
             for(String studentid:studentId){
                 stuMsgRepository.save(new Stu_msg(studentid,mailId,false));
             }
-            return ResponseEntity.ok().build();
+            return ResponseEntity.noContent().build();
         }
     }
 }
