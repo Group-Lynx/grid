@@ -13,6 +13,7 @@ import com.grid.response.ClaInfoResponse;
 import com.grid.response.StuInfoResponse;
 import com.grid.utils.ErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +42,8 @@ public class ClassController {
     public ResponseEntity<?> getClassInfo(@PathVariable String classId){
         String className = classesRepository.findClassNameById(classId);
         if(className==null){
-            return ResponseEntity.ok(ErrorResponse.CLASS_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.CLASS_NOT_FOUND);
         }
         return ResponseEntity.ok(new ClaInfoResponse(classId,className));
     }
@@ -49,7 +51,8 @@ public class ClassController {
     public ResponseEntity<?> getStudentInfo(@PathVariable String classId){
         String className = classesRepository.findClassNameById(classId);
         if(className==null){
-            return ResponseEntity.ok(ErrorResponse.CLASS_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.CLASS_NOT_FOUND);
         }
         List<String> studentId = stuClaRepository.findStuIdByClaId(classId);
         List<StuInfoResponse> result = new ArrayList<>();
@@ -65,7 +68,8 @@ public class ClassController {
         String teacherid=classInfoRequest.getTeacherId();
         String teachername=teacherRepository.findNameById(teacherid);
         if(teachername==null){
-            return ResponseEntity.ok(ErrorResponse.TEACHER_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.TEACHER_NOT_FOUND);
         }
         classesRepository.save(new Classes(classId,classInfoRequest.getTeacherId(),classInfoRequest.getClassName()));
         return ResponseEntity.ok(classId);
@@ -74,35 +78,41 @@ public class ClassController {
     public ResponseEntity<?> joinStuToClass(@RequestBody JoinClassRequest joinClassRequest){
         String studentname=studentRepository.findNameById(joinClassRequest.getStudentId());
         if(studentname==null){
-            return ResponseEntity.ok(ErrorResponse.STUDENT_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.STUDENT_NOT_FOUND);
         }
         String classname=classesRepository.findClassNameById(joinClassRequest.getClassId());
         if(classname==null){
-            return ResponseEntity.ok(ErrorResponse.CLASS_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.CLASS_NOT_FOUND);
         }
         String studentid = stuClaRepository.findStuIdByClaIdAndStuId(joinClassRequest.getClassId(),joinClassRequest.getStudentId());
         if(studentid!=null){
-            return ResponseEntity.ok(ErrorResponse.STUDENT_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.STUDENT_NOT_FOUND);
         }
         stuClaRepository.save(new Stu_cla(joinClassRequest.getClassId(),joinClassRequest.getStudentId()));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
     @PostMapping("/leave")
     public ResponseEntity<?> leaveClass(@RequestBody JoinClassRequest joinClassRequest){
         String studentname=studentRepository.findNameById(joinClassRequest.getStudentId());
         if(studentname==null){
-            return ResponseEntity.ok(ErrorResponse.STUDENT_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.STUDENT_NOT_FOUND);
         }
         String classname=classesRepository.findClassNameById(joinClassRequest.getClassId());
         if(classname==null){
-            return ResponseEntity.ok(ErrorResponse.CLASS_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.CLASS_NOT_FOUND);
         }
         String studentId= stuClaRepository.findByIdAndClassId(joinClassRequest.getClassId(),joinClassRequest.getStudentId());
         if(studentId==null){
-            return ResponseEntity.ok(ErrorResponse.STUDENT_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.STUDENT_NOT_FOUND);
         }else{
             stuClaRepository.deleteById(new Stu_clakey(joinClassRequest.getClassId(),studentId));
-            return ResponseEntity.ok().build();
+            return ResponseEntity.noContent().build();
         }
     }
 }

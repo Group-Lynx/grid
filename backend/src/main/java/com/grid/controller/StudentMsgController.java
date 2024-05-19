@@ -7,7 +7,9 @@ import com.grid.request.MailStateRequest;
 import com.grid.response.MsgInfoResponse;
 import com.grid.response.MsgResponse;
 import com.grid.utils.ErrorResponse;
+import jdk.management.jfr.RemoteRecordingStream;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +34,8 @@ public class StudentMsgController {
     public ResponseEntity<?> getAllMail(@PathVariable String uid){
         String studentname = studentRepository.findNameById(uid);
         if(studentname==null){
-            return ResponseEntity.ok(ErrorResponse.STUDENT_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.STUDENT_NOT_FOUND);
         }
         List<String> mail_id = stuMsgRepository.findMailById(uid);
         List<MsgResponse> result = new ArrayList<>();
@@ -43,21 +46,28 @@ public class StudentMsgController {
         return ResponseEntity.ok(result);
     }
     @GetMapping("/{uid}/mail/{mailId}")
-    public ResponseEntity<?> getAllMailInfo(@PathVariable String uid,@PathVariable String mailId){
+    public ResponseEntity<?> getMailInfo(@PathVariable String uid,@PathVariable String mailId){
         String studentname = studentRepository.findNameById(uid);
         if(studentname==null) {
-            return ResponseEntity.ok(ErrorResponse.STUDENT_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.STUDENT_NOT_FOUND);
         }
         MsgInfoResponse msgInfoResponse = noticeRepository.findInfoById(mailId);
-        return ResponseEntity.ok(Objects.requireNonNullElse(msgInfoResponse, ErrorResponse.MAIL_NOT_FOUND));
+        if(msgInfoResponse==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.MAIL_NOT_FOUND);
+        }else{
+            return ResponseEntity.ok(msgInfoResponse);
+        }
     }
     @PutMapping("/{uid}/mail/{mailId}")
     public ResponseEntity<?> updateMailState(@PathVariable String uid, @PathVariable String mailId, @RequestBody MailStateRequest mailStateRequest){
         String studentname = studentRepository.findNameById(uid);
         if(studentname==null) {
-            return ResponseEntity.ok(ErrorResponse.STUDENT_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.STUDENT_NOT_FOUND);
         }
         stuMsgRepository.updateState(uid,mailId,mailStateRequest.getIs_read());
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }
