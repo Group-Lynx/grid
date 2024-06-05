@@ -1,7 +1,6 @@
 <template>
   <div>
     <slot />
-    <DebugPane />
   </div>
 </template>
 

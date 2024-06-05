@@ -31,8 +31,6 @@
     <main class="flex-grow bg-slate-50">
       <slot />
     </main>
-
-    <DebugPane />
   </div>
 </template>
 
@@ -51,22 +49,10 @@ const navList = ref<NavItem[]>([
   { name: "个人", icon: "pi pi-user", path: "/me" },
 ]);
 
-// FIXME: Replace with real data
 const studentId = useState<string>("studentId");
 
 // FIXME: error handling & replace with real data
 const todos = useState<Todo[]>("todos");
-await callOnce(async () => {
-  // todos.value = await $fetch(`${cfg.apiServerBase}/student/${studentId}/todo`);
-  todos.value = [
-    // prettier-ignore
-    { id: "1", title: "Todo 1", detail: "Detail 1", due: new Date("2022-01-01"), done: false, display: false, },
-    // prettier-ignore
-    { id: "2", title: "Todo 2", detail: "Detail 2", due: new Date("2022-01-02"), done: true, display: false, },
-    // prettier-ignore
-    { id: "3", title: "Todo 3", detail: "Detail 3", due: new Date("2022-01-03"), done: false, display: true, },
-  ];
-});
 
 // FIXME: error handling & replace with real data
 const mails = useState<Mail[]>("mails");

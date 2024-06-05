@@ -31,8 +31,6 @@
         <slot />
       </div>
     </main>
-
-    <DebugPane />
   </div>
 </template>
 
