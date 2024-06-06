@@ -11,8 +11,7 @@ declare global {
   type Mail = {
     id: string;
     title: string;
-    detail: string;
-    read: boolean;
+    detail: string?;
   };
 
   type Class = {

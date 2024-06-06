@@ -42,8 +42,59 @@ definePageMeta({
   layout: "student",
 });
 
-const mails = useState<Mail[]>("mails");
 const viewing = ref<Mail | null>(null);
+const cfg = useRuntimeConfig();
+const apiServer = cfg.public.apiServerBase;
+const studentId = useCookie<string | null>("studentId");
+const toasts = useToast();
+
+const mails = useState<Mail[]>("mails");
+{
+  const { data, error } = await useFetch<StuMailResp[]>(
+    `${apiServer}/student/${studentId.value}/mail`,
+  );
+
+  if (error.value != null) {
+    toasts.add({
+      severity: "error",
+      summary: "未知错误",
+      detail: "尝试刷新页面或重新登录",
+      life: 5000,
+    });
+  } else {
+    mails.value = [];
+    for (let mail of data.value!) {
+      mails.value.push({
+        id: mail.mailId,
+        title: mail.title,
+        detail: null,
+      });
+    }
+  }
+}
+
+watch(viewing, async (_, newViewing) => {
+  const { data, error } = await useFetch<StuMailDetailResp>(
+    `${apiServer}/student/${studentId.value}/mail/${newViewing}`,
+  );
+
+  if (error.value != null) {
+    toasts.add({
+      severity: "error",
+      summary: "未知错误",
+      detail: "尝试刷新页面或重新登录",
+      life: 5000,
+    });
+  } else {
+    // update the fields of the mail `newViewing`
+    mails.value = mails.value.map((mail) => {
+      if (mail.id === newViewing?.id) {
+        mail.detail = data.value!.detail;
+      }
+      return mail;
+    });
+  }
+});
 
 function showAlert() {
   alert("FIXME");

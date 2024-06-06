@@ -1,5 +1,5 @@
 <template>
-  <DebugOnly>
+  <DevOnly>
     <div
       class="absolute bottom-10 right-10 flex flex-col items-center bg-red-600"
     >
@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-  </DebugOnly>
+  </DevOnly>
 </template>
 
 <script lang="ts" setup>

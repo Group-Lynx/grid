@@ -10,6 +10,15 @@
 definePageMeta({
   layout: "student",
 });
+
+const toasts = useToast();
+onMounted(async () => {
+  toasts.add({
+    severity: "success",
+    summary: "登录成功",
+    life: 5000,
+  });
+});
 </script>
 
 <style></style>

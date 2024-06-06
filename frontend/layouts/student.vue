@@ -41,6 +41,13 @@ type NavItem = {
   path: string;
 };
 const cfg = useRuntimeConfig();
+const apiServer = cfg.public.apiServerBase;
+const studentId = useCookie<string | null>("studentId");
+const toasts = useToast();
+
+if (studentId.value == null) {
+  await navigateTo("/welcome");
+}
 
 const navList = ref<NavItem[]>([
   { name: "日程", icon: "pi pi-calendar", path: "/calendar" },
@@ -49,24 +56,33 @@ const navList = ref<NavItem[]>([
   { name: "个人", icon: "pi pi-user", path: "/me" },
 ]);
 
-const studentId = useState<string>("studentId");
-
-// FIXME: error handling & replace with real data
 const todos = useState<Todo[]>("todos");
+{
+  const { data, error } = await useFetch<StuTodoResp[]>(
+    `${apiServer}/student/${studentId.value}/todo`,
+  );
 
-// FIXME: error handling & replace with real data
-const mails = useState<Mail[]>("mails");
-await callOnce(async () => {
-  // mails.value = await $fetch(`${cfg.apiServerBase}/student/${studentId}/mail`);
-  mails.value = [
-    // prettier-ignore
-    { id: "1", title: "Mail 1", detail: "Detail 1", read: false, },
-    // prettier-ignore
-    { id: "2", title: "Mail 2", detail: "Detail 2", read: true, },
-    // prettier-ignore
-    { id: "3", title: "Mail 3", detail: "Detail 3", read: false, },
-  ];
-});
+  if (error.value != null) {
+    toasts.add({
+      severity: "error",
+      summary: "未知错误",
+      detail: "尝试刷新页面或重新登录",
+      life: 5000,
+    });
+  } else {
+    todos.value = [];
+    for (let todo of data.value!) {
+      todos.value.push({
+        id: todo.todoId,
+        title: todo.title,
+        detail: todo.detail,
+        done: todo.done,
+        due: todo.due,
+        display: todo.display,
+      });
+    }
+  }
+}
 </script>
 
 <style></style>
