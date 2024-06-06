@@ -30,6 +30,8 @@ export default defineNuxtConfig({
     dirs: ["types"],
   },
   runtimeConfig: {
-    apiServerBase: "http://127.0.0.1:8000",
+    public: {
+      apiServerBase: "http://127.0.0.1:8080",
+    },
   },
 });
