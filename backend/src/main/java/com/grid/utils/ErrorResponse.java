@@ -6,7 +6,8 @@ public enum ErrorResponse {
     TEACHER_ALREADY_EXISTS("409 Conflict","Teacher already exists"),
     TEACHER_NOT_FOUND("404 Not Found","Teacher not found"),
     CLASS_NOT_FOUND("404 Not Found","Class not found"),
-    MAIL_NOT_FOUND("404 Not Found","Mail not found");
+    MAIL_NOT_FOUND("404 Not Found","Mail not found"),
+    CODE_NOT_FOUND("404 Not Found","Code not found");
     private final String errorCode;
     private final String message;
 
