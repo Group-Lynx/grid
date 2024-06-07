@@ -88,8 +88,8 @@ public class ClassController {
         }
         String studentid = stuClaRepository.findStuIdByClaIdAndStuId(joinClassRequest.getClassId(),joinClassRequest.getStudentId());
         if(studentid!=null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(ErrorResponse.STUDENT_NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(ErrorResponse.STUDENT_ALREADY_EXISTS);
         }
         stuClaRepository.save(new Stu_cla(joinClassRequest.getClassId(),joinClassRequest.getStudentId()));
         return ResponseEntity.noContent().build();
