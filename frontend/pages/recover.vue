@@ -31,11 +31,19 @@
             v-model="pswdConfirm"
           />
           <span class="flex gap-4">
-            <Button @click="studentRecover" v-if="studentStep === 0">
+            <Button
+              @click="studentRecover"
+              v-if="studentStep === 0"
+              :disabled="uid == null || uid.length == 0"
+            >
               <span class="pi pi-envelope text-xl"></span>
               <span class="pl-2">发送邮件</span>
             </Button>
-            <Button @click="studentVerify" v-if="studentStep === 1">
+            <Button
+              @click="studentVerify"
+              v-if="studentStep === 1"
+              :disabled="studentCode == null || studentCode.length !== 6"
+            >
               <span class="pi pi-sign-in text-xl"></span>
               <span class="pl-2">验证</span>
             </Button>
@@ -89,15 +97,31 @@
             v-if="teacherStep === 2"
             v-model="pswdConfirm"
           />
-          <Button @click="teacherRecover" v-if="teacherStep === 0">
+          <Button
+            @click="teacherRecover"
+            v-if="teacherStep === 0"
+            :disabled="
+              uid == null || uid.length == 0 || !isValidMail(email ?? '')
+            "
+          >
             <span class="pi pi-sign-in text-xl"></span>
             <span class="pl-2">发送邮件</span>
           </Button>
-          <Button @click="teacherVerify" v-if="teacherStep === 1">
+          <Button
+            @click="teacherVerify"
+            v-if="teacherStep === 1"
+            :disabled="teacherCode == null || teacherCode.length !== 6"
+          >
             <span class="pi pi-sign-in text-xl"></span>
             <span class="pl-2">验证</span>
           </Button>
-          <Button @click="resetTeacherPswd" v-if="teacherStep === 2">
+          <Button
+            @click="resetTeacherPswd"
+            v-if="teacherStep === 2"
+            :disabled="
+              pswd == null || pswdConfirm == null || pswd !== pswdConfirm
+            "
+          >
             <span class="pi pi-key text-xl"></span>
             <span class="pl-2">重置密码</span>
           </Button>
@@ -285,5 +309,9 @@ async function resetTeacherPswd() {
     });
     await navigateTo("/welcome");
   }
+}
+
+function isValidMail(mail: string) {
+  return /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(mail);
 }
 </script>
