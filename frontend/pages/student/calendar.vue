@@ -36,11 +36,32 @@
       >
         <!-- Event Item -->
         <div
-          class="m-1 flex h-20 flex-col items-center justify-center overflow-hidden text-nowrap rounded-md bg-indigo-400 duration-75 ease-out hover:-translate-y-0.5 hover:shadow-xl"
+          class="group m-1 flex h-20 flex-col items-center justify-center overflow-hidden text-nowrap rounded-md bg-indigo-400 duration-75 ease-out hover:-translate-y-0.5 hover:shadow-xl"
           v-for="e in visibleEvent[d]"
         >
-          <span class="text-xl font-bold">{{ e.name }}</span>
-          <span>{{ e.location }}, {{ e.start }} ~ {{ e.end }}</span>
+          <span
+            class="text-xl font-bold duration-75 ease-out group-hover:opacity-0"
+          >
+            {{ e.name }}
+          </span>
+          <span class="duration-75 ease-out group-hover:opacity-0">
+            {{ e.location }}, {{ e.start }} ~ {{ e.end }}
+          </span>
+          <div
+            class="absolute flex h-20 items-center justify-center gap-2 opacity-0 duration-75 ease-out group-hover:opacity-100"
+          >
+            <Button
+              icon="pi pi-pen-to-square"
+              size="small"
+              @click="beginEditEvent(e)"
+            />
+            <Button
+              severity="danger"
+              icon="pi pi-trash"
+              size="small"
+              @click="deleteEvent(e.id)"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -115,6 +136,49 @@
         </div>
 
         <Button @click="addNewEvent">添加</Button>
+      </div>
+    </Dialog>
+
+    <!-- Edit Event Dialog -->
+    <Dialog header="编辑日程" v-model:visible="editEventDialogVisible" modal>
+      <div class="flex flex-col items-center gap-4">
+        <div class="flex items-center gap-2">
+          <label for="eventNameId">名称</label>
+          <InputText id="eventNameId" v-model:model-value="editEventName" />
+        </div>
+        <div class="flex items-center gap-2">
+          <label for="eventLocationId">地点</label>
+          <InputText
+            id="eventLocationId"
+            v-model:model-value="editEventLocation"
+          />
+        </div>
+        <div class="flex items-center gap-2">
+          <label for="eventLocationId">日期</label>
+          <Calendar id="eventLocationId" v-model:model-value="editEventDate" />
+        </div>
+        <div class="flex items-center gap-2">
+          <label for="eventLocationId">开始</label>
+          <InputNumber
+            id="eventLocationId"
+            v-model:model-value="editEventStart"
+            :min="1"
+            :max="24"
+            placeholder="小时"
+          />
+        </div>
+        <div class="flex items-center gap-2">
+          <label for="eventLocationId">结束</label>
+          <InputNumber
+            id="eventLocationId"
+            v-model:model-value="editEventEnd"
+            :min="1"
+            :max="24"
+            placeholder="小时"
+          />
+        </div>
+
+        <Button @click="editEvent">提交修改</Button>
       </div>
     </Dialog>
   </div>
@@ -194,12 +258,12 @@ async function getStuEvents() {
     events.value = [];
     for (let event of data.value!) {
       events.value.push({
-        id: event.id,
+        id: event.eventId,
         name: event.name,
         date: new Date(event.date),
         location: event.location,
-        start: event.start_hour,
-        end: event.end_hour,
+        start: event.start,
+        end: event.end,
       });
     }
   }
@@ -266,7 +330,7 @@ const newEventStart = ref<number>();
 const newEventEnd = ref<number>();
 
 async function addNewEvent() {
-  const { data, error } = await useFetch<StuEventResp>(
+  const { error } = await useFetch<StuEventResp>(
     `${apiServer}/student/${studentId.value}/event`,
     {
       method: "POST",
@@ -291,16 +355,6 @@ async function addNewEvent() {
       life: 5000,
     });
   } else {
-    events.value.push({
-      id: data.value!.id,
-      name: data.value!.name,
-      date: new Date(data.value!.date),
-      location: data.value!.location,
-      start: data.value!.start_hour,
-      end: data.value!.end_hour,
-    });
-    addEventDialogVisible.value = false;
-
     newEventName.value = undefined;
     newEventLocation.value = undefined;
     newEventDate.value = undefined;
@@ -308,6 +362,80 @@ async function addNewEvent() {
     newEventEnd.value = undefined;
 
     await getStuEvents();
+
+    addEventDialogVisible.value = false;
+  }
+}
+
+async function deleteEvent(id: string) {
+  const { error } = await useFetch(
+    `${apiServer}/student/${studentId.value}/event/${id}`,
+    {
+      method: "DELETE",
+    },
+  );
+
+  if (error.value != null) {
+    toasts.add({
+      severity: "error",
+      summary: "未知错误",
+      detail: "尝试刷新页面或重新登录",
+      life: 5000,
+    });
+  } else {
+    await getStuEvents();
+  }
+}
+
+const editEventDialogVisible = ref<boolean>(false);
+const editingEvent = ref<StuEvent | null>(null);
+const editEventName = ref<string>();
+const editEventLocation = ref<string>();
+const editEventDate = ref<Date>();
+const editEventStart = ref<number>();
+const editEventEnd = ref<number>();
+function beginEditEvent(e: StuEvent) {
+  editingEvent.value = e;
+  editEventName.value = e.name;
+  editEventLocation.value = e.location;
+  editEventDate.value = new Date(e.date);
+  editEventStart.value = e.start;
+  editEventEnd.value = e.end;
+  editEventDialogVisible.value = true;
+}
+
+async function editEvent() {
+  if (editingEvent.value == null) {
+    return;
+  }
+
+  const { error } = await useFetch<StuEventResp>(
+    `${apiServer}/student/${studentId.value}/event/${editingEvent.value.id}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: editEventName.value,
+        location: editEventLocation.value,
+        date: editEventDate.value,
+        start: editEventStart.value,
+        end: editEventEnd.value,
+      }),
+    },
+  );
+
+  if (error.value != null) {
+    toasts.add({
+      severity: "error",
+      summary: "未知错误",
+      detail: "尝试刷新页面或重新登录",
+      life: 5000,
+    });
+  } else {
+    await getStuEvents();
+    editEventDialogVisible.value = false;
   }
 }
 </script>

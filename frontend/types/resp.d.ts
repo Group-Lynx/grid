@@ -24,11 +24,11 @@ declare global {
     display: boolean;
   };
   type StuEventResp = {
-    id: string;
+    eventId: string;
     name: string;
     location: string;
-    start_hour: number;
-    end_hour: number;
+    start: number;
+    end: number;
     date: Date;
   };
   type StuTodoReq = {
@@ -37,6 +37,36 @@ declare global {
     detail?: string;
     done?: boolean;
     display?: boolean;
+  };
+  type TchClaResp = {
+    classId: string;
+    className: string;
+  };
+  type ClaInfoResp = {
+    classId: string;
+    className: string;
+  };
+  type ClaStuResp = {
+    studentId: string;
+    studentName: string;
+  };
+  type ClaMailResp = {
+    mailId: string;
+    title: string;
+  };
+  type MailDetailResp = {
+    title: string;
+    detail: string;
+    draft: boolean;
+  };
+  type TchInfoResp = {
+    teacherId: string;
+    teacherName: string;
+  };
+  type mailPatchReq = {
+    title?: string;
+    detail?: string;
+    draft?: boolean;
   };
 }
 

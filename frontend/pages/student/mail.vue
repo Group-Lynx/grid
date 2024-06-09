@@ -26,12 +26,12 @@
         <div class="flex w-full items-center justify-between bg-blue-200">
           <p class="m-4 text-2xl font-bold">{{ viewing.title }}</p>
           <div>
-            <Button class="m-4" @click="showAlert">标记已读</Button>
-            <Button class="m-4" @click="showAlert">转为待办</Button>
+            <!-- <Button class="m-4" @click="markRead(viewing.id)">标记已读</Button> -->
+            <Button class="m-4" @click="intoTodo(viewing)">转为待办</Button>
           </div>
         </div>
 
-        <p class="m-4">{{ viewing.detail }}</p>
+        <p class="w-full items-start p-4">{{ viewing.detail }}</p>
       </div>
     </div>
   </div>
@@ -73,9 +73,9 @@ const mails = useState<Mail[]>("mails");
   }
 }
 
-watch(viewing, async (_, newViewing) => {
+watch(viewing, async (newViewing) => {
   const { data, error } = await useFetch<StuMailDetailResp>(
-    `${apiServer}/student/${studentId.value}/mail/${newViewing}`,
+    `${apiServer}/student/${studentId.value}/mail/${newViewing!.id}`,
   );
 
   if (error.value != null) {
@@ -86,7 +86,6 @@ watch(viewing, async (_, newViewing) => {
       life: 5000,
     });
   } else {
-    // update the fields of the mail `newViewing`
     mails.value = mails.value.map((mail) => {
       if (mail.id === newViewing?.id) {
         mail.detail = data.value!.detail;
@@ -96,8 +95,34 @@ watch(viewing, async (_, newViewing) => {
   }
 });
 
-function showAlert() {
-  alert("FIXME");
+async function intoTodo(mail: Mail) {
+  const { error } = await useFetch(
+    `${apiServer}/student/${studentId.value}/todo`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        title: mail.title,
+        detail: mail.detail,
+        due: new Date(),
+      }),
+    },
+  );
+
+  if (error.value != null) {
+    toasts.add({
+      severity: "error",
+      summary: "未知错误",
+      detail: "尝试刷新页面或重新登录",
+      life: 5000,
+    });
+  } else {
+    toasts.add({
+      severity: "success",
+      summary: "成功创建待办事项",
+      detail: "请前往待办事项页面查看和修改",
+      life: 5000,
+    });
+  }
 }
 </script>
 

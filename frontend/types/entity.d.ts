@@ -41,8 +41,8 @@ declare global {
   type ClassMail = {
     id: string;
     title: string;
-    detail: string;
-    draft: boolean;
+    detail?: string;
+    draft?: boolean;
   };
 
   type ClassInfo = {

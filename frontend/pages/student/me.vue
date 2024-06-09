@@ -98,7 +98,7 @@
           <label for="newNameId">新名字</label>
           <InputText id="newNameId" v-model:model-value="newName" />
         </div>
-        <Button>提交</Button>
+        <Button @click="patchInfo">提交</Button>
       </div>
     </Dialog>
   </div>
@@ -161,16 +161,13 @@ await getStuClasses();
 const joinClassDialogVisible = ref<boolean>(false);
 const joinClassId = ref<string>("");
 
-const editMyInfoDialogVisible = ref<boolean>(false);
-const newName = ref<string | null>();
-
 async function logout() {
   studentId.value = null;
   await navigateTo("/welcome");
 }
 
 async function joinClass() {
-  const { data, error } = await useFetch(`${apiServer}/class/join`, {
+  const { error } = await useFetch(`${apiServer}/class/join`, {
     method: "POST",
     body: JSON.stringify({
       studentId: studentId.value,
@@ -194,6 +191,29 @@ async function joinClass() {
   } else {
     await getStuClasses();
     joinClassDialogVisible.value = false;
+  }
+}
+
+const editMyInfoDialogVisible = ref<boolean>(false);
+const newName = ref<string | null>();
+async function patchInfo() {
+  const { error } = await useFetch(`${apiServer}/student/${studentId.value}`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      studentName: newName.value,
+    }),
+  });
+
+  if (error.value != null) {
+    toasts.add({
+      severity: "error",
+      summary: "未知错误",
+      detail: "尝试刷新页面或重新登录",
+      life: 5000,
+    });
+  } else {
+    info.value.name = newName.value!;
+    editMyInfoDialogVisible.value = false;
   }
 }
 </script>

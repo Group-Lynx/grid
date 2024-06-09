@@ -1,6 +1,8 @@
 <!-- Login & Signup Logic -->
 <template>
-  <div class="flex h-screen w-screen items-center justify-center bg-blue-200">
+  <div
+    class="flex h-screen w-screen flex-col items-center justify-center gap-2 bg-blue-200"
+  >
     <TabView>
       <TabPanel>
         <template #header>
@@ -94,6 +96,13 @@
         </div>
       </TabPanel>
     </TabView>
+
+    <button
+      class="flex h-10 w-40 items-center justify-center rounded-lg bg-gray-100 font-bold text-blue-600 duration-75 ease-out hover:w-52 hover:bg-white"
+      @click="navigateTo('/recover')"
+    >
+      找回密码
+    </button>
   </div>
 </template>
 
@@ -180,10 +189,73 @@ async function studentSignup() {
 }
 
 async function teacherLogin() {
-  alert("教师登录");
+  const { error } = await useFetch(`${apiServer}/teacher/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      teacherId: uid.value,
+      password: pswd.value,
+    }),
+  });
+
+  if (error.value != null) {
+    let err = error.value;
+    let msg = "未知错误";
+    switch (err?.statusCode) {
+      case 404:
+        msg = "ID 不存在或密码错误";
+        break;
+    }
+    console.log("err", err);
+    toasts.add({
+      severity: "error",
+      summary: "登录失败",
+      detail: msg,
+      life: 5000,
+    });
+  } else {
+    const teacherId = useCookie<string>("teacherId");
+    teacherId.value = uid.value;
+    await navigateTo("/teacher");
+  }
 }
 async function teacherSignup() {
-  alert("教师注册");
+  const { error } = await useFetch(`${apiServer}/teacher/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      teacherId: uid.value,
+      password: pswd.value,
+    }),
+  });
+
+  if (error.value != null) {
+    let err = error.value;
+    let msg = "未知错误";
+    switch (err?.statusCode) {
+      case 409:
+        msg = "教师 ID 冲突";
+        break;
+    }
+    console.log("err", err);
+    toasts.add({
+      severity: "error",
+      summary: "注册失败",
+      detail: msg,
+      life: 5000,
+    });
+  } else {
+    toasts.add({
+      severity: "success",
+      summary: "注册成功",
+      detail: "请登录",
+      life: 5000,
+    });
+  }
 }
 </script>
 
