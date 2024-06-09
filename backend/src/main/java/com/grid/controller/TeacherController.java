@@ -87,6 +87,7 @@ public class TeacherController {
     @PatchMapping("/{id}")
     public ResponseEntity<?> changeInfo(@RequestBody PatchInfoRequest req, @PathVariable String id){
         String teachername=teacherRepository.findNameById(id);
+        System.out.println(req.getName());
         if(teachername==null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.TEACHER_NOT_FOUND);

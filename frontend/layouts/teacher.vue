@@ -18,7 +18,7 @@
       <span class="flex grow items-center justify-center">
         <button
           class="ml-2 mr-1 flex h-[80%] grow items-center justify-center rounded-xl border-blue-600 bg-blue-200 duration-75 ease-out hover:-translate-y-0.5 hover:bg-blue-300 hover:shadow-lg"
-          @click="teacherInfoDialogVisible = true"
+          @click="beginEditTeacherInfo"
         >
           <i class="pi pi-user mr-1"></i>
           个人信息
@@ -72,17 +72,12 @@
     <div class="flex flex-col items-center gap-4">
       <div class="flex items-center gap-2">
         <label for="teacherId">教师 ID</label>
-        <InputText
-          id="teacherId"
-          v-model:value="teacherInfo.id"
-          readonly
-          disabled
-        />
+        <InputText id="teacherId" v-model="teacherInfo.id" readonly disabled />
       </div>
 
       <div class="flex items-center gap-2">
         <label for="teacherName">教师姓名</label>
-        <InputText id="teacherName" v-model:value="teacherInfo.name" />
+        <InputText id="teacherName" v-model="newTeacherName" />
       </div>
 
       <span class="flex gap-4">
@@ -197,7 +192,12 @@ async function getTeacherInfo() {
 }
 await getTeacherInfo();
 
-// BUG: backend does not support changing name
+const newTeacherName = ref<string>("");
+function beginEditTeacherInfo() {
+  newTeacherName.value = teacherInfo.value.name;
+  teacherInfoDialogVisible.value = true;
+}
+
 async function patchTeacherInfo() {
   const { error } = await useFetch(`${apiServer}/teacher/${teacherId.value}`, {
     method: "PATCH",
@@ -205,7 +205,7 @@ async function patchTeacherInfo() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      teacherName: teacherInfo.value.name,
+      name: newTeacherName.value,
     }),
   });
 

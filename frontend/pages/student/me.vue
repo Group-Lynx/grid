@@ -200,7 +200,7 @@ async function patchInfo() {
   const { error } = await useFetch(`${apiServer}/student/${studentId.value}`, {
     method: "PATCH",
     body: JSON.stringify({
-      studentName: newName.value,
+      name: newName.value,
     }),
   });
 
