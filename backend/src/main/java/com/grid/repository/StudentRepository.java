@@ -19,4 +19,8 @@ public interface StudentRepository extends JpaRepository<Student,String> {
     String findNameByIdAndPassword(String studentId,String password);
     @Query("SELECT sc.cla_id FROM Stu_cla sc where sc.stu_id=:studentId")
     List<String> findClassesById(String studentId);
+    @Modifying
+    @Transactional
+    @Query("UPDATE Student s SET s.password =:password WHERE s.id=:id")
+    void updateInfoById(String id, String password);
 }

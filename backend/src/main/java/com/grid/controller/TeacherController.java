@@ -82,4 +82,15 @@ public class TeacherController {
             return ResponseEntity.noContent().build();
         }
     }
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> changeInfo(@RequestBody TeacherLoginRequest teacherLoginRequest, @PathVariable String id){
+        String teachername=teacherRepository.findNameById(teacherLoginRequest.getTeacherId());
+        if(teachername==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.TEACHER_NOT_FOUND);
+        }else{
+            teacherRepository.updateInfoById(teacherLoginRequest.getTeacherId(),teacherLoginRequest.getPassword());
+            return ResponseEntity.ok().build();
+        }
+    }
 }

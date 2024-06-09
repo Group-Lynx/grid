@@ -9,10 +9,10 @@ import jakarta.persistence.IdClass;
 @IdClass(Stu_msgkey.class)
 public class Stu_msg {
     @Id
-    @Column(unique = true)
+    @Column()
     private String stu_id;
     @Id
-    @Column(unique = true)
+    @Column()
     private String msg_id;
     @Column(nullable = false)
     private Boolean is_read;
