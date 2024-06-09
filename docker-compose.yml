@@ -1,0 +1,57 @@
+services:
+  grid-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - grid-network
+    depends_on:
+      grid-backend:
+        condition: service_healthy
+
+  grid-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    networks:
+      - grid-network
+    ports:
+      - "8080:8080"
+    environment:
+      - MYSQL_HOST=grid-database
+    depends_on:
+      grid-database:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "http://localhost:8080/health" ]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+      start_period: 5s
+
+  grid-database:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=Grid
+    networks:
+      - grid-network
+    volumes:
+      - grid-data:/var/lib/mysql
+      - grid-data-config:/etc/mysql/conf.d
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 60
+      start_period: 5s
+
+volumes:
+  grid-data:
+  grid-data-config:
+
+
+networks:
+  grid-network:

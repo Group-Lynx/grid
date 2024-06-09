@@ -31,7 +31,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiServerBase: "http://127.0.0.1:8080",
+      apiServerBase: `http://${process.env.API_SERVER_HOST ?? "localhost"}:8080`,
     },
   },
 });
