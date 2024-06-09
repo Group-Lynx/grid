@@ -3,6 +3,8 @@ package com.grid.controller;
 import com.grid.model.Teacher;
 import com.grid.repository.ClassesRepository;
 import com.grid.repository.TeacherRepository;
+import com.grid.request.PatchInfoRequest;
+import com.grid.request.PatchPswdRequest;
 import com.grid.request.TeacherLoginRequest;
 import com.grid.response.ClaInfoResponse;
 import com.grid.response.TeacInfoResponse;
@@ -83,13 +85,24 @@ public class TeacherController {
         }
     }
     @PatchMapping("/{id}")
-    public ResponseEntity<?> changeInfo(@RequestBody TeacherLoginRequest teacherLoginRequest, @PathVariable String id){
-        String teachername=teacherRepository.findNameById(teacherLoginRequest.getTeacherId());
+    public ResponseEntity<?> changeInfo(@RequestBody PatchInfoRequest req, @PathVariable String id){
+        String teachername=teacherRepository.findNameById(id);
         if(teachername==null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.TEACHER_NOT_FOUND);
         }else{
-            teacherRepository.updateInfoById(teacherLoginRequest.getTeacherId(),teacherLoginRequest.getPassword());
+            teacherRepository.updateInfoById(id, req.getName());
+            return ResponseEntity.ok().build();
+        }
+    }
+    @PutMapping("/{id}/password")
+    public ResponseEntity<?> changePswd(@RequestBody PatchPswdRequest req, @PathVariable String id){
+        String teachername=teacherRepository.findNameById(id);
+        if(teachername==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.TEACHER_NOT_FOUND);
+        }else{
+            teacherRepository.updatePswdById(id, req.getPswd());
             return ResponseEntity.ok().build();
         }
     }

@@ -93,7 +93,7 @@ public class ClassMsgController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(ErrorResponse.CLASS_NOT_FOUND);
         }else{
-            noticeRepository.updateMsg(mailId,msgRequest.getTitle(),msgRequest.getTitle());
+            noticeRepository.updateMsg(mailId,msgRequest.getTitle(),msgRequest.getDetail());
             return ResponseEntity.noContent().build();
         }
     }

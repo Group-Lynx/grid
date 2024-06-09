@@ -14,5 +14,9 @@ public interface TeacherRepository extends JpaRepository<Teacher,String> {
     @Modifying
     @Transactional
     @Query("UPDATE Teacher t SET t.password =:password WHERE t.id=:teacherId")
-    void updateInfoById(String teacherId, String password);
+    void updatePswdById(String teacherId, String password);
+    @Modifying
+    @Transactional
+    @Query("UPDATE Teacher t SET t.name=:name WHERE t.id=:teacherId")
+    void updateInfoById(String teacherId, String name);
 }
