@@ -91,4 +91,15 @@ public class Stu_AccController {
             return ResponseEntity.noContent().build();
         }
     }
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateInfoById(@PathVariable String id,@RequestBody StudentLoginRequest studentLoginRequest) {
+        String student_name = studentRepository.findNameById(studentLoginRequest.getStudentId());
+        if (student_name == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(ErrorResponse.STUDENT_NOT_FOUND);
+        } else {
+            studentRepository.updateInfoById(id, studentLoginRequest.getPassword());
+            return ResponseEntity.noContent().build();
+        }
+    }
 }
