@@ -106,7 +106,6 @@ async function getMailList(newClass: Class) {
   const { data, error } = await useFetch<ClaMailResp[]>(
     `${apiServer}/class/${newClass.id}/mail`,
   );
-  console.log("url", `${apiServer}/class/${newClass.id}/mail`);
 
   if (error.value != null) {
     toasts.add({
@@ -116,7 +115,6 @@ async function getMailList(newClass: Class) {
       life: 5000,
     });
   } else {
-    console.log("data", data.value);
     mails.value = [];
     for (let mail of data.value!) {
       mails.value.push({
@@ -128,8 +126,6 @@ async function getMailList(newClass: Class) {
 }
 watch(selectedClass, async (newClass, _) => {
   await getMailList(newClass);
-  console.log("newClass", newClass);
-  console.log("mails", mails.value);
 });
 if (selectedClass.value != null) {
   await getMailList(selectedClass.value);
@@ -142,11 +138,6 @@ watch(viewing, async (newMail) => {
     const { data, error } = await useFetch<MailDetailResp>(
       `${apiServer}/class/${selectedClass.value.id}/mail/${newMail.id}`,
     );
-    console.log(
-      "url",
-      `${apiServer}/class/${selectedClass.value.id}/mail/${newMail.id}`,
-    );
-    console.log("data", data.value);
 
     if (error.value != null) {
       toasts.add({

@@ -243,6 +243,10 @@ const thisWeek = computed<Date[]>(() => {
 
 // Event Scripts
 const events = useState<StuEvent[]>("events");
+if (events.value == null) {
+  events.value = [];
+}
+
 async function getStuEvents() {
   const { data, error } = await useFetch<StuEventResp[]>(
     `${apiServer}/student/${studentId.value}/event`,

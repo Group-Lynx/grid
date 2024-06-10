@@ -135,7 +135,6 @@ async function studentLogin() {
         msg = "ID 不存在或密码错误";
         break;
     }
-    console.log("err", err);
     toasts.add({
       severity: "error",
       summary: "登录失败",
@@ -170,7 +169,6 @@ async function studentSignup() {
         msg = "学生 ID 冲突";
         break;
     }
-    console.log("err", err);
     toasts.add({
       severity: "error",
       summary: "注册失败",
@@ -208,7 +206,6 @@ async function teacherLogin() {
         msg = "ID 不存在或密码错误";
         break;
     }
-    console.log("err", err);
     toasts.add({
       severity: "error",
       summary: "登录失败",
@@ -241,7 +238,6 @@ async function teacherSignup() {
         msg = "教师 ID 冲突";
         break;
     }
-    console.log("err", err);
     toasts.add({
       severity: "error",
       summary: "注册失败",

@@ -153,7 +153,6 @@ async function getStuTodos() {
         display: todo.display,
       });
     }
-    console.log(todos.value);
   }
 }
 await getStuTodos();
@@ -193,7 +192,6 @@ async function addTodo() {
 }
 
 async function patchTodo(todo: Todo, obj: StuTodoReq) {
-  console.log(todo, obj);
   const { error } = await useFetch(
     `${apiServer}/student/${studentId.value}/todo/${todo.id}`,
     {

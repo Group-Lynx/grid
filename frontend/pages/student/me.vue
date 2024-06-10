@@ -115,6 +115,13 @@ const studentId = useCookie<string | null>("studentId");
 const toasts = useToast();
 
 const info = useState<StuInfo>("studentInfo");
+if (info.value == null) {
+  info.value = {
+    id: "",
+    name: "",
+  };
+}
+
 const { data, error } = await useFetch<StuInfoResp>(
   `${apiServer}/student/${studentId.value}`,
 );
