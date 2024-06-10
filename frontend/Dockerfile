@@ -1,18 +1,15 @@
-FROM node:20-alpine
+FROM oven/bun:1
 
 WORKDIR /app
 
 COPY . .
 
-# Fix npm connect error
-RUN npm config set registry https://registry.npmmirror.com/
-
 # Install dependencies & build
-RUN npm install
-RUN npm run build
+RUN bun install --frozen-lockfile --production
+RUN bun run build
 
 ENV API_SERVER_HOST=grid-backend
 
 EXPOSE 3000
 
-CMD [ "node", ".output/server/index.mjs" ]
+CMD [ "bun", ".output/server/index.mjs" ]

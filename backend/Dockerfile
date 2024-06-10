@@ -7,6 +7,7 @@ COPY .mvn/ .mvn/
 COPY mvnw ./
 COPY pom.xml ./
 
+RUN apt-get update && apt-get install dos2unix
 RUN chmod +x mvnw
 
 RUN ./mvnw dependency:resolve
