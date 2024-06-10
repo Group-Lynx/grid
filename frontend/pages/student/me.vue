@@ -70,7 +70,7 @@
           class="group absolute flex h-full w-full items-center justify-center rounded-3xl duration-75 ease-out hover:rounded-md hover:bg-gray-400/40"
         >
           <span class="opacity-0 duration-75 ease-out group-hover:opacity-100">
-            <Button>离开</Button>
+            <Button @click="leaveClass(cla.id)">离开</Button>
           </span>
         </div>
       </div>
@@ -221,6 +221,27 @@ async function patchInfo() {
   } else {
     info.value.name = newName.value!;
     editMyInfoDialogVisible.value = false;
+  }
+}
+
+async function leaveClass(classId: string) {
+  const { error } = await useFetch(`${apiServer}/class/leave`, {
+    method: "POST",
+    body: JSON.stringify({
+      studentId: studentId.value,
+      classId: classId,
+    }),
+  });
+
+  if (error.value != null) {
+    toasts.add({
+      severity: "error",
+      summary: "未知错误",
+      detail: "尝试刷新页面或重新登录",
+      life: 5000,
+    });
+  } else {
+    await getStuClasses();
   }
 }
 </script>

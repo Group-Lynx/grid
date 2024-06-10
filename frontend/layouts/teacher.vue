@@ -172,6 +172,12 @@ async function addClass() {
 
 const teacherInfoDialogVisible = ref<boolean>(false);
 const teacherInfo = useState<TchInfo>("teacherInfo");
+if (teacherInfo.value == null) {
+  teacherInfo.value = {
+    id: "",
+    name: "",
+  };
+}
 async function getTeacherInfo() {
   const { data, error } = await useFetch<TchInfoResp>(
     `${apiServer}/teacher/${teacherId.value}`,
