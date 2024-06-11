@@ -8,13 +8,19 @@
         class="flex h-[90%] w-full shrink-0 grow-0 flex-col items-center overflow-auto"
       >
         <button
-          class="m-2 flex h-16 min-h-16 w-11/12 items-center justify-center rounded-md bg-blue-200 duration-75 ease-out hover:translate-x-0.5 hover:shadow-lg"
+          class="group m-2 flex h-16 min-h-16 w-11/12 items-center justify-center rounded-md bg-blue-200 duration-75 ease-out hover:translate-x-0.5 hover:shadow-lg"
           v-for="cla in classes"
           @click="selectedClass = cla"
         >
           {{ cla.name }}
+          <span
+            class="absolute flex h-16 items-center justify-center overflow-visible bg-gray-400/50 opacity-0 delay-0 duration-75 ease-out group-hover:opacity-100 group-hover:delay-500"
+          >
+            {{ cla.id }}
+          </span>
         </button>
       </span>
+
       <span class="flex grow items-center justify-center">
         <button
           class="ml-2 mr-1 flex h-[80%] grow items-center justify-center rounded-xl border-blue-600 bg-blue-200 duration-75 ease-out hover:-translate-y-0.5 hover:bg-blue-300 hover:shadow-lg"
