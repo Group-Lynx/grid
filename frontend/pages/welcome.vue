@@ -16,7 +16,10 @@
             placeholder="密码"
             v-model:model-value="pswd"
           />
-          <Button @click="studentLogin" :disabled="uid === '' || pswd === ''">
+          <Button
+            @click="studentLogin"
+            :disabled="uid === '' || pswd === '' || !isValidStuId(uid)"
+          >
             <span class="pi pi-sign-in text-xl"></span>
             <span class="pl-2">登录</span>
           </Button>
@@ -42,7 +45,12 @@
           />
           <Button
             @click="studentSignup"
-            :disabled="pswd !== pswdConfirm || uid === '' || pswd === ''"
+            :disabled="
+              pswd !== pswdConfirm ||
+              uid === '' ||
+              pswd === '' ||
+              !isValidStuId(uid)
+            "
           >
             <span class="pi pi-user-plus text-xl"></span>
             <span class="pl-2">注册</span>
@@ -252,6 +260,14 @@ async function teacherSignup() {
       life: 5000,
     });
   }
+}
+
+function isValidStuId(str: string): boolean {
+  if (str.length !== 12) {
+    return false;
+  }
+  const numericPattern = /^[0-9]+$/;
+  return numericPattern.test(str);
 }
 </script>
 
